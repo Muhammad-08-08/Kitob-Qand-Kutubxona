@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Card } from "antd";
 import Image from "next/image";
 import useMyStore from "@/store/my-store";
 import { CardPageType } from "./Type.User";
@@ -13,18 +12,12 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
   const allBusy = item.stocks.every((stock) => stock.busy);
 
   return (
-    <Card
-      hoverable
-      style={{
-        maxWidth: "250px",
-        padding: "12px",
-        borderRadius: "8px",
-        border: `1px solid ${isDarkMode ? "#1E1E1E" : "#A06A5A"}`,
-        backgroundColor: isDarkMode ? "#1E1E1E" : "#FDF7F5",
-        boxShadow: isDarkMode
-          ? "0 4px 12px rgba(0,0,0,0.2)"
-          : "0 4px 12px rgba(160, 106, 90, 0.3)",
-      }}
+    <div
+      className={`max-w-[250px] p-3 rounded-lg border shadow-md ${
+        isDarkMode
+          ? "border-[#1E1E1E] bg-[#1E1E1E] text-[#FDF7F5]"
+          : "border-[#A06A5A] bg-[#FDF7F5] text-[#5B2C25]"
+      }`}
     >
       <div className="w-full h-[150px] flex justify-center items-center overflow-hidden bg-white rounded-md">
         <Image
@@ -52,27 +45,19 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
           {item.author?.name}
         </p>
 
-        <Button
-          style={{
-            marginTop: "12px",
-            width: "100%",
-            backgroundColor: isDarkMode
-              ? "#252525"
+        <button
+          className={`mt-3 w-full py-2 text-lg rounded-md font-semibold ${
+            isDarkMode
+              ? "bg-[#252525] text-[#FDF7F5]"
               : allBusy
-              ? "orange"
-              : "#A06A5A",
-            color: isDarkMode ? "#FDF7F5" : "#FFFFFF",
-            border: "none",
-            padding: "10px 0",
-            fontSize: "16px",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
+              ? "bg-orange-500 text-white"
+              : "bg-[#A06A5A] text-white"
+          }`}
         >
           {allBusy ? "Band" : "Bo'sh"}
-        </Button>
+        </button>
       </div>
-    </Card>
+    </div>
   );
 };
 

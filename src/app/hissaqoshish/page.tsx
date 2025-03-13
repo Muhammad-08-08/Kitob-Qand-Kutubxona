@@ -18,7 +18,7 @@ const HissaQoshish: React.FC = () => {
 
   return (
     <div
-      className={`container p-5 ${
+      className={`container mx-auto p-5 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#FDF7F5]"
           : "bg-[#FDF7F5] text-[#5B2C25]"

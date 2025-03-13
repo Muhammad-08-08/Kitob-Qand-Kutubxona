@@ -1,13 +1,12 @@
 "use client";
 
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import { message, Spin, Modal } from "antd";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import useMyStore from "../store/my-store";
+import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
+import useMyStore from "@/store/my-store";
 import Image from "next/image";
 
-interface ProductPageProps {
+interface KardModalProps {
   id: number;
   isOpen: boolean;
   onClose: () => void;
@@ -33,7 +32,7 @@ interface Status {
   returningDate: string;
 }
 
-const KardModal: React.FC<ProductPageProps> = ({ id, isOpen, onClose }) => {
+const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
   const { isDarkMode } = useMyStore();
   const [productPage, setProductPage] = useState<Book | null>(null);
   const [qaytishi, setQaytishi] = useState<Status[] | null>(null);
@@ -49,7 +48,7 @@ const KardModal: React.FC<ProductPageProps> = ({ id, isOpen, onClose }) => {
         setProductPage(response.data);
       })
       .catch(() => {
-        message.error("Xatolik yuzaga keldi");
+        console.error("Xatolik yuzaga keldi");
       });
 
     axios
@@ -60,7 +59,7 @@ const KardModal: React.FC<ProductPageProps> = ({ id, isOpen, onClose }) => {
         setQaytishi(res.data);
       })
       .catch(() => {
-        message.error("Xatolik yuzaga keldi");
+        console.error("Xatolik yuzaga keldi");
       })
       .finally(() => setLoading(false));
   }, [id, isOpen]);
@@ -68,78 +67,77 @@ const KardModal: React.FC<ProductPageProps> = ({ id, isOpen, onClose }) => {
   const boshKitoblar = productPage?.stocks.filter((i) => !i.busy).length || 0;
 
   return (
-    <Modal open={isOpen} onCancel={onClose} footer={null} width={700}>
-      {loading || !productPage || !qaytishi ? (
-        <div className="w-full flex justify-center items-center py-10">
-          <Spin size="large" />
-        </div>
-      ) : (
-        <div
-          className={`shadow-md py-5 px-5 ${
-            isDarkMode
-              ? "bg-[#1E1E1E] text-[#EDEDED]"
-              : "bg-[#FDF7F5] text-[#5B2C25]"
-          }`}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
         >
-          <div className="flex gap-3 items-center border-b border-gray-400 dark:border-gray-600 mb-4 pb-2">
-            <ArrowLeftOutlined onClick={onClose} className="cursor-pointer" />
-            <h3 className="text-xl font-medium">Kitob</h3>
-          </div>
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-shrink-0">
-              <Image
-                src={productPage.image}
-                alt={productPage.name}
-                width={48}
-                height={48}
-                className="w-full md:w-48 h-auto rounded-lg shadow"
-              />
-            </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-3">{productPage.name}</h2>
-              <h4 className="text-lg font-medium mb-2">
-                Muallif: {productPage.author.name}
-              </h4>
-              <p className="mb-3">
-                Kitobni kutubxonamizdan bepul vaqtinchalik o'qib turish uchun
-                olishingiz mumkin.
-              </p>
-              <div className="space-y-2">
-                <h4 className="text-md font-medium">
-                  Umumiy kitoblar soni: {productPage.stocks.length}
-                </h4>
-                <h4 className="text-md font-medium">
-                  Bo'sh kitoblar: {boshKitoblar}
-                </h4>
+          <motion.div
+            className={`w-full max-w-lg bg-white dark:bg-[#1E1E1E] rounded-lg shadow-lg p-5 relative`}
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-3 right-3 text-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              onClick={onClose}
+            >
+              ✖
+            </button>
+
+            {loading || !productPage || !qaytishi ? (
+              <div className="w-full flex justify-center items-center py-10">
+                <p>Yuklanmoqda...</p>
               </div>
-              <div className="mt-4">
-                <h4 className="text-md font-semibold mb-2">
-                  📅 Bo'shash muddatlari:
+            ) : (
+              <div className="text-center">
+                <Image
+                  src={productPage.image}
+                  alt={productPage.name}
+                  width={100}
+                  height={150}
+                  className="mx-auto rounded-lg shadow-md"
+                />
+                <h2 className="text-2xl font-bold mt-3">{productPage.name}</h2>
+                <h4 className="text-lg font-medium mt-1">
+                  Muallif: {productPage.author.name}
                 </h4>
-                <div className="space-y-2">
+
+                <p className="mt-2 text-gray-600 dark:text-gray-300">
+                  Kutubxonadan vaqtinchalik o‘qish uchun olish mumkin.
+                </p>
+
+                <div className="mt-4 space-y-2">
+                  <p>📚 Umumiy kitoblar soni: {productPage.stocks.length}</p>
+                  <p>✅ Bo'sh kitoblar: {boshKitoblar}</p>
+                </div>
+
+                <h4 className="mt-4 font-semibold">📅 Bo‘shash muddatlari:</h4>
+                <div className="mt-2 space-y-2">
                   {qaytishi.map((item) => (
                     <div
                       key={item.id}
-                      className="flex gap-3 p-2 rounded-md shadow-sm border border-gray-300 dark:border-gray-700"
+                      className="flex justify-between items-center p-2 rounded-md border border-gray-300 dark:border-gray-700"
                     >
                       <p className="font-medium">1 ta</p>
-                      <span className="flex-1 border-b border-dashed border-gray-400 dark:border-gray-600"></span>
                       <p>
-                        {new Date(item.returningDate).toLocaleString("ru", {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "numeric",
-                        })}
+                        {new Date(item.returningDate).toLocaleDateString("ru")}
                       </p>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+            )}
+          </motion.div>
+        </motion.div>
       )}
-    </Modal>
+    </AnimatePresence>
   );
 };
 
