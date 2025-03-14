@@ -69,23 +69,23 @@ const Statistics: React.FC = () => {
         </p>
       </div>
 
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-14">
         {statItems.map((item, index) => (
           <div
             key={index}
-            className={`p-6 rounded-lg shadow-md text-center ${
+            className={`p-4 rounded-lg shadow-md text-center ${
               isDarkMode
                 ? "bg-[#252525] text-[#FDF7F5]"
                 : "bg-[#F0EAE8] text-[#5B2C25]"
             }`}
           >
             <div className="mb-3 flex justify-center">
-              <Image src={item.image} alt={item.label} width={50} height={50} />
+              <Image src={item.image} alt={item.label} width={64} height={64} />
             </div>
-            <h4 className="text-2xl font-bold">
+            <h4 className="text-3xl font-bold">
               {item.value.toLocaleString("ru")}
             </h4>
-            <p className="mt-1 text-lg">{item.label}</p>
+            <p className="mt-1 text-xl">{item.label}</p>
           </div>
         ))}
       </div>

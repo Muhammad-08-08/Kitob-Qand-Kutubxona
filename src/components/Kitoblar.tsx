@@ -123,7 +123,7 @@ const Kitoblar: React.FC = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
           {books.items.map((item) => (
             <div key={item.id} onClick={() => openModal(item.id)}>
               <CardPage item={item} />

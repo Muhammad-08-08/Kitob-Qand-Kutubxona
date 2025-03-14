@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import useMyStore from "@/store/my-store";
 import Image from "next/image";
 
@@ -44,100 +44,93 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
     setLoading(true);
     axios
       .get(`https://library.softly.uz/api/app/books/${id}`)
-      .then((response) => {
-        setProductPage(response.data);
-      })
-      .catch(() => {
-        console.error("Xatolik yuzaga keldi");
-      });
+      .then((response) => setProductPage(response.data))
+      .catch(() => console.error("Xatolik yuzaga keldi"));
 
     axios
       .get(
         `https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`
       )
-      .then((res) => {
-        setQaytishi(res.data);
-      })
-      .catch(() => {
-        console.error("Xatolik yuzaga keldi");
-      })
+      .then((res) => setQaytishi(res.data))
+      .catch(() => console.error("Xatolik yuzaga keldi"))
       .finally(() => setLoading(false));
   }, [id, isOpen]);
 
   const boshKitoblar = productPage?.stocks.filter((i) => !i.busy).length || 0;
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <motion.div
-            className={`w-full max-w-lg bg-white dark:bg-[#1E1E1E] rounded-lg shadow-lg p-5 relative`}
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="absolute top-3 right-3 text-lg text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-              onClick={onClose}
-            >
-              ✖
-            </button>
-
-            {loading || !productPage || !qaytishi ? (
-              <div className="w-full flex justify-center items-center py-10">
-                <p>Yuklanmoqda...</p>
-              </div>
-            ) : (
-              <div className="text-center">
-                <Image
-                  src={productPage.image}
-                  alt={productPage.name}
-                  width={100}
-                  height={150}
-                  className="mx-auto rounded-lg shadow-md"
-                />
-                <h2 className="text-2xl font-bold mt-3">{productPage.name}</h2>
-                <h4 className="text-lg font-medium mt-1">
+    <div
+      className={`fixed inset-0 bg-black/50 bg-opacity-50 transition-opacity ${
+        isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+      } flex justify-center items-end`}
+      onClick={onClose}
+    >
+      <div
+        className={`w-full max-w-[1000px] ${
+          isDarkMode
+            ? "bg-[#1E1E1E] text-[#EDEDED]"
+            : "bg-[#FDF7F5] text-[#5B2C25]"
+        } p-5 rounded-t-2xl shadow-lg transition-transform transform ${
+          isOpen ? "translate-y-0" : "translate-y-full"
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {loading || !productPage || !qaytishi ? (
+          <div className="w-full flex justify-center items-center py-10">
+            Yuklanmoqda...
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center gap-3 border-b pb-3 mb-4">
+              <ArrowLeft className="cursor-pointer" onClick={onClose} />
+              <h3 className="text-xl font-medium">Kitob</h3>
+            </div>
+            <div className="flex flex-col md:flex-row gap-6">
+              <Image
+                src={productPage.image}
+                alt={productPage.name}
+                width={320}
+                height={160}
+                className="rounded-lg shadow"
+              />
+              <div>
+                <h2 className="text-2xl font-bold">{productPage.name}</h2>
+                <h4 className="text-lg font-medium">
                   Muallif: {productPage.author.name}
                 </h4>
-
-                <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Kutubxonadan vaqtinchalik o‘qish uchun olish mumkin.
+                <p className="mt-2">
+                  Kutubxonamizdan vaqtincha olib o'qishingiz mumkin.
                 </p>
-
                 <div className="mt-4 space-y-2">
-                  <p>📚 Umumiy kitoblar soni: {productPage.stocks.length}</p>
-                  <p>✅ Bo'sh kitoblar: {boshKitoblar}</p>
+                  <p>📚 Umumiy kitoblar: {productPage.stocks.length}</p>
+                  <p>📖 Bo'sh kitoblar: {boshKitoblar}</p>
                 </div>
-
-                <h4 className="mt-4 font-semibold">📅 Bo‘shash muddatlari:</h4>
-                <div className="mt-2 space-y-2">
-                  {qaytishi.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex justify-between items-center p-2 rounded-md border border-gray-300 dark:border-gray-700"
-                    >
-                      <p className="font-medium">1 ta</p>
-                      <p>
-                        {new Date(item.returningDate).toLocaleDateString("ru")}
-                      </p>
-                    </div>
-                  ))}
+                <div className="mt-4">
+                  <h4 className="font-semibold">📅 Bo'sh muddatlar:</h4>
+                  <div className="space-y-2 mt-2">
+                    {qaytishi.map((item) => (
+                      <div
+                        key={item.id}
+                        className={`flex justify-between p-2 border rounded-md ${
+                          isDarkMode ? "border-gray-700" : "border-gray-300"
+                        }`}
+                      >
+                        <p>1 ta</p>
+                        <p>
+                          {new Date(item.returningDate).toLocaleDateString(
+                            "ru"
+                          )}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import React from "react";
 
 function page() {
   return (
-    <div>
+    <div className="container mx-auto xl:px-36">
       <Statistics />
       <Kitoblar />
     </div>

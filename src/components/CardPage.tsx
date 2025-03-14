@@ -31,11 +31,11 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
 
       <div className="mt-3 flex flex-col gap-2">
         <h3
-          className={`text-lg font-bold h-10 mb-2 ${
+          className={`text-lg font-bold truncate h-10 mb-2 ${
             isDarkMode ? darkText : lightText
           }`}
         >
-          {item.name.slice(0, 20)}...
+          {item.name}
         </h3>
         <p
           className={`text-sm h-10 ${
@@ -46,12 +46,12 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
         </p>
 
         <button
-          className={`mt-3 w-full py-2 text-lg rounded-md font-semibold ${
+          className={`px-10 w-max mx-auto py-2 rounded-md text-sm font-medium ${
             isDarkMode
               ? "bg-[#252525] text-[#FDF7F5]"
               : allBusy
-              ? "bg-orange-500 text-white"
-              : "bg-[#A06A5A] text-white"
+              ? "bg-[#5B2C25] text-white"
+              : "bg-[#954930] text-white"
           }`}
         >
           {allBusy ? "Band" : "Bo'sh"}
