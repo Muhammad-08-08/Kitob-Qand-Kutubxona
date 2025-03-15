@@ -26,7 +26,7 @@ const ZarurKitoblar: React.FC = () => {
 
   return (
     <div
-      className={`container mx-auto xl:px-10 p-4 transition-colors duration-300 ${
+      className={`container mx-auto xl:px-24 p-4 transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
           : "bg-[#FDF7F5] text-[#5B2C25]"

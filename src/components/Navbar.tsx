@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`container mx-auto xl:px-24.5 w-full transition-colors duration-300 ${
+      className={`container mx-auto w-full transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
           : "bg-[#FDF7F5] text-[#5B2C25]"
