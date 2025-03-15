@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
               Manzil
             </Link>
             <Link href="/hissaqoshish" className="hover:text-[#A06A5A]">
-              Hissa qo'shish
+              Hissa qo"shish
             </Link>
             <Link href="/zarurkitoblar" className="hover:text-[#A06A5A]">
               Zarur kitoblar
@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
               Manzil
             </Link>
             <Link href="/hissaqoshish" className="hover:text-[#A06A5A]">
-              Hissa qo'shish
+              Hissa qo"shish
             </Link>
             <Link href="/zarurkitoblar" className="hover:text-[#A06A5A]">
               Zarur kitoblar

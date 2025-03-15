@@ -99,14 +99,14 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
                   Muallif: {productPage.author.name}
                 </h4>
                 <p className="mt-2">
-                  Kutubxonamizdan vaqtincha olib o'qishingiz mumkin.
+                  Kutubxonamizdan vaqtincha olib o&apos;qishingiz mumkin.
                 </p>
                 <div className="mt-4 space-y-2">
                   <p>📚 Umumiy kitoblar: {productPage.stocks.length}</p>
-                  <p>📖 Bo'sh kitoblar: {boshKitoblar}</p>
+                  <p>📖 Bo&apos;sh kitoblar: {boshKitoblar}</p>
                 </div>
                 <div className="mt-4">
-                  <h4 className="font-semibold">📅 Bo'sh muddatlar:</h4>
+                  <h4 className="font-semibold">📅 Bo&apos;sh muddatlar:</h4>
                   <div className="space-y-2 mt-2">
                     {qaytishi.map((item) => (
                       <div

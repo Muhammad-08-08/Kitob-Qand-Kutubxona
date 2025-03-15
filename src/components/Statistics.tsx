@@ -65,7 +65,7 @@ const Statistics: React.FC = () => {
       <div className="text-left xl:text-center">
         <h2 className="text-3xl font-bold">Kutubxona statistikasi</h2>
         <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A]">
-          To'liq ko'rish
+          To"liq ko"rish
         </p>
       </div>
 
