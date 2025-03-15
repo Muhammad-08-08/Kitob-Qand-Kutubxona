@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: true,
   },
+  transpilePackages: ["recharts"],
 };
 
 export default nextConfig;

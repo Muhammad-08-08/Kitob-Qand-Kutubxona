@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     if (isDarkMode) {
       document.body.style.backgroundColor = "#1E1E1E";
-      document.body.style.color = "#FDF7F5";
+      document.body.style.color = "#EDEDED";
     } else {
       document.body.style.backgroundColor = "#FDF7F5";
       document.body.style.color = "#5B2C25";
@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`container mx-auto xl:px-36 x w-full ${
+      className={`container mx-auto xl:px-24.5 w-full transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
           : "bg-[#FDF7F5] text-[#5B2C25]"
@@ -79,11 +79,13 @@ const Navbar: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <div
-          className={`absolute top-0 left-0 w-full h-screen bg-black bg-opacity-50 flex justify-end`}
-        >
+        <div className="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-50 flex justify-end">
           <div
-            className={`w-64 bg-white dark:bg-gray-900 h-full shadow-lg p-5 flex flex-col gap-6`}
+            className={`w-64 h-full shadow-lg p-5 flex flex-col gap-6 transition-colors duration-300 ${
+              isDarkMode
+                ? "bg-[#1E1E1E] text-[#EDEDED]"
+                : "bg-white text-gray-900"
+            }`}
           >
             <button
               className="self-end text-2xl"
