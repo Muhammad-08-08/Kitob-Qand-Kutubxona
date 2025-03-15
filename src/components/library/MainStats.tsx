@@ -24,9 +24,9 @@ export default function MainStats({ totalStats }: MainStatsProps) {
 
   return (
     <Card
-      className={`h-full shadow-md transition-colors duration-300 ${
+      className={`h-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
         isDarkMode
-          ? "bg-[#1E1E1E] text-[#EDEDED]"
+          ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
@@ -61,10 +61,10 @@ export default function MainStats({ totalStats }: MainStatsProps) {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`text-center p-2 rounded-lg transition-colors duration-300 ${
+              className={`text-center p-3 rounded-lg shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
                 isDarkMode
-                  ? "bg-gray-800 text-gray-300"
-                  : "bg-[#FDF7F5] text-[#5B2C25]"
+                  ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
+                  : "bg-[#FAE3D9] hover:bg-[#F2C2A2] text-[#5B2C25]"
               }`}
             >
               <span className="text-4xl block mb-2">{stat.emoji}</span>

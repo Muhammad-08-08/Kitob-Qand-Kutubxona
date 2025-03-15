@@ -16,8 +16,6 @@ const ZarurKitoblar: React.FC = () => {
 
   useEffect(() => {
     axios.get("https://library.softly.uz/api/app/stats").then((response) => {
-      console.log(response.data.few_books);
-
       const oddiyArray = Array.isArray(response.data.few_books[0])
         ? response.data.few_books.flat()
         : response.data.few_books;
@@ -28,25 +26,27 @@ const ZarurKitoblar: React.FC = () => {
 
   return (
     <div
-      className={`container mx-auto xl:px-10 p-4 ${
+      className={`container mx-auto xl:px-10 p-4 transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
-      <h2 className="text-2xl font-bold text-center mb-4">
-        📚 Zarur (yetishmayotgan) kitoblar
-      </h2>
+      <h2 className="text-2xl font-bold text-center mb-6">📚 Zarur Kitoblar</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {zarurkitoblar.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg border border-gray-200 shadow-md p-3"
+            className={`p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+              isDarkMode
+                ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
+                : "bg-[#FAE3D9] text-[#5B2C25] hover:bg-[#F2C2A2]"
+            }`}
           >
-            <p className="font-bold text-lg">
+            <p className="font-bold text-lg mb-2">
               {index + 1}. {item.name}
             </p>
-            <div className="flex justify-between mt-2">
+            <div className="flex justify-between text-sm">
               <span>📖 Umumiy: {item.total} ta</span>
               <span>🔒 Band: {item.busies} ta</span>
             </div>

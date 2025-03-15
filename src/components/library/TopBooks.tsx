@@ -36,7 +36,7 @@ export default function TopBooks({ books }: TopBooksProps) {
     <Card
       className={`shadow-md h-full transition-colors duration-300 ${
         isDarkMode
-          ? "bg-[#1E1E1E] text-[#EDEDED]"
+          ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >

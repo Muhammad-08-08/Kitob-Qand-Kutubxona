@@ -22,7 +22,7 @@ export default function AdditionalStats({ totalStats }: TotalStatsType) {
     <Card
       className={`h-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
         isDarkMode
-          ? "bg-[#1E1E1E] text-[#EDEDED]"
+          ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >

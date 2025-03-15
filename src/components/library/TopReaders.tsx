@@ -33,7 +33,7 @@ export default function TopReaders({ readers }: TopReadersProps) {
     <Card
       className={`shadow-lg h-full transition-colors duration-300 rounded-xl p-4 ${
         isDarkMode
-          ? "bg-[#1E1E1E] text-[#EDEDED]"
+          ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
