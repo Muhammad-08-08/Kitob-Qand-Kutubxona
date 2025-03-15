@@ -42,7 +42,7 @@ export default function TopReaders({ readers }: TopReadersProps) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {topReaders.map((reader, index) => (
+          {topReaders.map((reader) => (
             <div
               key={reader.lastName}
               className={`p-4 rounded-xl shadow-md flex items-center gap-3 transition-colors duration-300 cursor-pointer hover:scale-105 ${

@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
       document.body.style.color = "#5B2C25";
     }
     initDarkMode();
-  }, [isDarkMode]);
+  }, [isDarkMode, initDarkMode]);
 
   return (
     <header
