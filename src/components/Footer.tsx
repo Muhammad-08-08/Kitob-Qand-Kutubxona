@@ -27,11 +27,11 @@ const Footer: React.FC = () => {
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
-          Bepul kutubxona. Kutubxonaga kelib o&apos;zingizga kerakli kitobni
-          kelishilgan muddatga o&apos;qib turish uchun olib ketishingiz mumkin.
+          Bepul kutubxona. Kutubxonaga kelib o&#39;zingizga kerakli kitobni
+          kelishilgan muddatga o&#39;qib turish uchun olib ketishingiz mumkin.
           Bu mutlaqo bepul. Alloh roziligi uchun. Kutubxonaga ehson qilib pul
           bilan yoki kitob bilan savob manbaini hosil qilishingiz mumkin. Har
-          bir o&apos;qilgan kitobda sizga savob borib turadi inshaAlloh.
+          bir o&#39;qilgan kitobda sizga savob borib turadi inshaAlloh.
           Sadaqai Joriyaining afzali ilmga qilinganidir.
         </p>
         <div className="flex flex-col sm:flex-row justify-around my-10 mx-auto">
