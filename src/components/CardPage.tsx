@@ -21,8 +21,8 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
     >
       <div className="w-full h-[150px] flex justify-center items-center overflow-hidden bg-white rounded-md">
         <Image
-          src={item.image}
-          alt={item.name}
+          src={item.image || "no image"}
+          alt={item.name || "no image"}
           width={200}
           height={200}
           className="max-h-full max-w-full object-contain"

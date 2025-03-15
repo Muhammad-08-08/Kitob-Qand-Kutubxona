@@ -27,12 +27,12 @@ const Footer: React.FC = () => {
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
-          Bepul kutubxona. Kutubxonaga kelib o'zingizga kerakli kitobni
-          kelishilgan muddatga o'qib turish uchun olib ketishingiz mumkin. Bu
-          mutlaqo bepul. Alloh roziligi uchun. Kutubxonaga ehson qilib pul bilan
-          yoki kitob bilan savob manbaini hosil qilishingiz mumkin. Har bir
-          o'qilgan kitobda sizga savob borib turasi inshaAlloh. Sadaqai
-          Joriyaining afzali ilmga qilinganidir.
+          Bepul kutubxona. Kutubxonaga kelib o&apos;zingizga kerakli kitobni
+          kelishilgan muddatga o&apos;qib turish uchun olib ketishingiz mumkin.
+          Bu mutlaqo bepul. Alloh roziligi uchun. Kutubxonaga ehson qilib pul
+          bilan yoki kitob bilan savob manbaini hosil qilishingiz mumkin. Har
+          bir o&apos;qilgan kitobda sizga savob borib turadi inshaAlloh.
+          Sadaqai Joriyaining afzali ilmga qilinganidir.
         </p>
         <div className="flex flex-col sm:flex-row justify-around my-10 mx-auto">
           <Link href={"/"}>
@@ -40,9 +40,9 @@ const Footer: React.FC = () => {
               <Image
                 src={logo}
                 alt="Kitob Qand logo"
-                className={`w-16 h-16 sm:h-20 ${
-                  isDarkMode ? "invert brightness-0" : ""
-                }`}
+                width={64}
+                height={64}
+                className={`sm:h-20 ${isDarkMode ? "invert brightness-0" : ""}`}
               />
               <span
                 className={`text-2xl sm:text-3xl font-bold ${
@@ -54,14 +54,13 @@ const Footer: React.FC = () => {
             </div>
           </Link>
           <div className="flex items-center gap-4 w-full sm:w-auto justify-center sm:justify-start">
-            <img
-              className="w-16 sm:w-20"
-              src="https://mehrkutubxonasi.uz/assets/images/telegramm.png"
-              alt="telegram kanal"
+            <Image
+              src="/images/telegramm.png"
+              alt="Telegram kanal"
               width={80}
               height={80}
+              className="w-16 sm:w-20"
             />
-
             <div>
               <h4
                 className={`font-bold text-2xl sm:text-3xl ${
