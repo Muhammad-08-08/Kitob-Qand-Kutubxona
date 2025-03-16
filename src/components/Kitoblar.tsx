@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import CardPage from "./CardPage";
 import { TopMenuType } from "./Type.User";
 import KardModal from "./KardModal";
+import { Pagination } from "./ui/pagination";
 
 const Kitoblar: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -135,23 +136,11 @@ const Kitoblar: React.FC = () => {
           </div>
         )}
         {!loading && (
-          <div className="flex justify-center mt-5 space-x-4">
-            <button
-              className="px-3 sm:px-4 py-2 bg-gray-500 text-white rounded text-sm sm:text-base"
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            >
-              ← Oldingi
-            </button>
-            <span className="px-3 sm:px-4 py-2 text-sm sm:text-base">
-              {currentPage}
-            </span>
-            <button
-              className="px-3 sm:px-4 py-2 bg-gray-500 text-white rounded text-sm sm:text-base"
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
-              Keyingi →
-            </button>
-          </div>
+          <Pagination
+            page={currentPage}
+            totalPages={books ? Math.ceil(books.totalCount / 20) : 1}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
         )}
       </div>
       {selectedBookId !== undefined && (

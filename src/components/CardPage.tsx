@@ -31,14 +31,14 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
 
       <div className="mt-3 flex flex-col gap-2">
         <h3
-          className={`text-base sm:text-lg font-bold truncate h-10 mb-2 ${
+          className={`text-base sm:text-lg font-bold truncate h-8 ${
             isDarkMode ? darkText : lightText
           }`}
         >
           {item.name}
         </h3>
         <p
-          className={`text-xs sm:text-sm h-10 ${
+          className={`text-xs sm:text-sm h-8 mb-2 ${
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >

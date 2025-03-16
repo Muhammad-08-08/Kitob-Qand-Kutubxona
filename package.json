@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
     "antd": "^5.24.3",
     "app-paths": "^0.0.2",
     "axios": "^1.8.3",

@@ -39,7 +39,7 @@ export default function BorrowingChart({ data }: BorrowingChartProps) {
           📈 Kitob Olish/Qaytarish
         </CardTitle>
       </CardHeader>
-      <CardContent className="w-full sm:h-[400px] md:h-[500px] lg:h-[600px]">
+      <CardContent className="w-full">
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={data}>
             <XAxis
