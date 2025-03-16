@@ -28,20 +28,26 @@ export default function BorrowingChart({ data }: BorrowingChartProps) {
 
   return (
     <Card
-      className={`shadow-md transition-colors duration-300 rounded-xl p-4 ${
+      className={`w-full shadow-md transition-colors duration-300 rounded-xl ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl">📈 Kitob Olish/Qaytarish</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">
+          📈 Kitob Olish/Qaytarish
+        </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+      <CardContent className="w-full sm:h-[400px] md:h-[500px] lg:h-[600px]">
+        <ResponsiveContainer width="100%" height={200}>
           <LineChart data={data}>
-            <XAxis dataKey="date" stroke={isDarkMode ? "#EDEDED" : "#5B2C25"} />
-            <YAxis stroke={isDarkMode ? "#EDEDED" : "#5B2C25"} />
+            <XAxis
+              dataKey="date"
+              stroke={isDarkMode ? "#EDEDED" : "#5B2C25"}
+              fontSize={12}
+            />
+            <YAxis stroke={isDarkMode ? "#EDEDED" : "#5B2C25"} fontSize={12} />
             <Tooltip
               contentStyle={{
                 backgroundColor: isDarkMode ? "#333" : "#FDF7F5",
@@ -49,7 +55,7 @@ export default function BorrowingChart({ data }: BorrowingChartProps) {
                 color: isDarkMode ? "#EDEDED" : "#5B2C25",
               }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: "14px" }} />
             <Line
               type="monotone"
               dataKey="borrowed"

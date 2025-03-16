@@ -51,6 +51,10 @@ const Kitoblar: React.FC = () => {
       });
   }, [currentPage, searchQuery, busy]);
 
+  const handleFilter = (filter: boolean | null) => {
+    setBusy(filter);
+  };
+
   const openModal = (id: number) => {
     console.log("Tanlangan kitob ID:", id);
     setSelectedBookId(id);
@@ -62,14 +66,6 @@ const Kitoblar: React.FC = () => {
     setSelectedBookId(undefined);
   };
 
-  if (!books || loading) {
-    return (
-      <div className="w-full h-screen py-10 text-center flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
-      </div>
-    );
-  }
-
   return (
     <div
       className={`min-h-screen p-5 ${
@@ -78,73 +74,85 @@ const Kitoblar: React.FC = () => {
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
-      <div className="w-max mx-auto">
-        <h2 className="text-2xl font-bold mb-5 text-center">Kitoblar</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 mb-6 gap-4">
-          <div className="flex gap-2">
+      <div className="max-w-full lg:max-w-[1100px] mx-auto">
+        <h2 className="text-xl sm:text-2xl font-bold mb-5 text-center">
+          Kitoblar
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div className="flex flex-wrap gap-2">
             <button
-              className={`px-4 py-2 rounded ${
+              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
                 busy === null
                   ? "bg-blue-500 text-white"
                   : "bg-gray-300 text-black"
               }`}
-              onClick={() => setBusy(null)}
+              onClick={() => handleFilter(null)}
             >
               Barchasi
             </button>
             <button
-              className={`px-4 py-2 rounded ${
+              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
                 busy === false
                   ? "bg-green-500 text-white"
                   : "bg-gray-300 text-black"
               }`}
-              onClick={() => setBusy(false)}
+              onClick={() => handleFilter(false)}
             >
               Bo'sh
             </button>
             <button
-              className={`px-4 py-2 rounded ${
+              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
                 busy === true
                   ? "bg-red-500 text-white"
                   : "bg-gray-300 text-black"
               }`}
-              onClick={() => setBusy(true)}
+              onClick={() => handleFilter(true)}
             >
               Band
             </button>
           </div>
-          <div className="w-[250px] sm:w-auto">
+          <div className="w-full sm:w-auto">
             <input
               type="text"
               value={inputSearchValue}
               onChange={(e) => setInputSearchValue(e.currentTarget.value)}
               placeholder="Kitob qidirish..."
-              className="w-full px-4 py-2 border rounded"
+              className="w-full px-4 py-2 border rounded text-sm sm:text-base"
             />
           </div>
         </div>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
-          {books.items.map((item) => (
-            <div key={item.id} onClick={() => openModal(item.id)}>
-              <CardPage item={item} />
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center mt-5">
-          <button
-            className="px-4 py-2 bg-gray-500 text-white rounded"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          >
-            ← Oldingi
-          </button>
-          <span className="px-4 py-2">{currentPage}</span>
-          <button
-            className="px-4 py-2 bg-gray-500 text-white rounded"
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-          >
-            Keyingi →
-          </button>
-        </div>
+        {loading ? (
+          <div className="w-full flex justify-center items-center py-10">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {books?.items.map((item) => (
+              <div key={item.id} onClick={() => openModal(item.id)}>
+                <CardPage item={item} />
+              </div>
+            ))}
+          </div>
+        )}
+        {!loading && (
+          <div className="flex justify-center mt-5 space-x-4">
+            <button
+              className="px-3 sm:px-4 py-2 bg-gray-500 text-white rounded text-sm sm:text-base"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            >
+              ← Oldingi
+            </button>
+            <span className="px-3 sm:px-4 py-2 text-sm sm:text-base">
+              {currentPage}
+            </span>
+            <button
+              className="px-3 sm:px-4 py-2 bg-gray-500 text-white rounded text-sm sm:text-base"
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Keyingi →
+            </button>
+          </div>
+        )}
       </div>
       {selectedBookId !== undefined && (
         <KardModal

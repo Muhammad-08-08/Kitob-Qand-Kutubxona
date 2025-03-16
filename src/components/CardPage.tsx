@@ -13,13 +13,13 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
 
   return (
     <div
-      className={`max-w-[250px] p-3 rounded-lg border shadow-md ${
+      className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md transition-all duration-300 ${
         isDarkMode
           ? "border-[#1E1E1E] bg-[#1E1E1E] text-[#FDF7F5]"
           : "border-[#A06A5A] bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
-      <div className="w-full h-[150px] flex justify-center items-center overflow-hidden bg-white rounded-md">
+      <div className="w-full h-[150px] sm:h-[200px] flex justify-center items-center overflow-hidden bg-white rounded-md">
         <Image
           src={item.image || "no image"}
           alt={item.name || "no image"}
@@ -31,14 +31,14 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
 
       <div className="mt-3 flex flex-col gap-2">
         <h3
-          className={`text-lg font-bold truncate h-10 mb-2 ${
+          className={`text-base sm:text-lg font-bold truncate h-10 mb-2 ${
             isDarkMode ? darkText : lightText
           }`}
         >
           {item.name}
         </h3>
         <p
-          className={`text-sm h-10 ${
+          className={`text-xs sm:text-sm h-10 ${
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
@@ -46,7 +46,7 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
         </p>
 
         <button
-          className={`px-10 w-max mx-auto py-2 rounded-md text-sm font-medium ${
+          className={`px-6 sm:px-10 py-2 w-max mx-auto rounded-md text-xs sm:text-sm font-medium transition-all duration-300 ${
             isDarkMode
               ? "bg-[#252525] text-[#FDF7F5]"
               : allBusy

@@ -34,14 +34,14 @@ export default function TopBooks({ books }: TopBooksProps) {
 
   return (
     <Card
-      className={`shadow-md h-full transition-colors duration-300 ${
+      className={`w-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl">🏆 Top Kitoblar</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">🏆 Top Kitoblar</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
@@ -51,12 +51,12 @@ export default function TopBooks({ books }: TopBooksProps) {
               className={`flex items-center justify-between p-2 rounded-lg transition-colors duration-300 ${
                 isDarkMode
                   ? "bg-gray-800 text-gray-300"
-                  : "bg-[#FDF7F5] text-[#5B2C25]"
+                  : "bg-[#f5ebe8] text-[#5B2C25]"
               }`}
             >
               <div className="flex items-center gap-2">
                 <span
-                  className={`w-6 h-6 flex items-center justify-center rounded-full text-sm font-semibold ${
+                  className={`w-5 h-5 flex items-center justify-center rounded-full text-xs font-semibold ${
                     isDarkMode
                       ? "bg-gray-700 text-gray-300"
                       : "bg-slate-200 text-gray-800"
@@ -64,24 +64,28 @@ export default function TopBooks({ books }: TopBooksProps) {
                 >
                   {index + 1}
                 </span>
-                <span className="font-medium text-sm">{book.name}</span>
+                <span className="font-medium text-sm sm:text-base">
+                  {book.name}
+                </span>
               </div>
-              <span className="font-semibold">{book.count}</span>
+              <span className="font-semibold text-sm sm:text-base">
+                {book.count}
+              </span>
             </div>
           ))}
           {topBooks.length > 5 && (
             <button
               onClick={() => setShowAllBooks(!showAllBooks)}
-              className="w-full mt-2 flex items-center justify-center gap-1 text-sm transition-colors duration-300"
+              className="w-full mt-2 flex items-center justify-center gap-1 text-sm sm:text-base transition-colors duration-300"
             >
               {showAllBooks ? (
                 <>
-                  <ChevronUp size={16} />
+                  <ChevronUp size={14} />
                   <span>Kamroq ko'rsatish</span>
                 </>
               ) : (
                 <>
-                  <ChevronDown size={16} />
+                  <ChevronDown size={14} />
                   <span>Ko'proq ko'rsatish</span>
                 </>
               )}

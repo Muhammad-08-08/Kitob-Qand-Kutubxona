@@ -76,35 +76,35 @@ const LibraryStatistics: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen py-6 px-4 transition-colors duration-300 ${
+      className={`min-h-screen py-6 p-2 md:px-4 transition-all duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-center mb-6">
           Kutubxona Statistikasi
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <div className="lg:col-span-6">
+          <div className="w-full lg:col-span-6">
             <MainStats totalStats={mainStats} />
           </div>
 
-          <div className="lg:col-span-6">
+          <div className="w-full lg:col-span-6">
             <AdditionalStats totalStats={totalStats} />
           </div>
 
-          <div className="lg:col-span-12">
+          <div className="w-full lg:col-span-12">
             <BorrowingChart data={graphData} />
           </div>
 
-          <div className="lg:col-span-4">
+          <div className="w-full lg:col-span-4">
             <TopBooks books={topBooks} />
           </div>
 
-          <div className="lg:col-span-8">
+          <div className="w-full lg:col-span-8">
             <TopReaders readers={topReaders} />
           </div>
         </div>

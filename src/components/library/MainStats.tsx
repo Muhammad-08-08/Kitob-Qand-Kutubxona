@@ -23,17 +23,19 @@ export default function MainStats({ totalStats }: MainStatsProps) {
 
   return (
     <Card
-      className={`h-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
+      className={`w-full shadow-md transition-colors duration-300 rounded-xl  ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl">📊 Umumiy Statistika</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">
+          📊 Umumiy Statistika
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
           {[
             {
               label: "Jami Kitoblar",
@@ -60,15 +62,21 @@ export default function MainStats({ totalStats }: MainStatsProps) {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`text-center p-3 rounded-lg shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+              className={`w-full text-center p-2 sm:p-3 rounded-lg shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
                   : "bg-[#f5ebe8] hover:bg-[#e7d8d3] text-[#5B2C25]"
               }`}
             >
-              <span className="text-4xl block mb-2">{stat.emoji}</span>
-              <span className="text-2xl font-bold block">{stat.value.toLocaleString("ru")}</span>
-              <span className="text-sm mt-1 block">{stat.label}</span>
+              <span className="text-3xl sm:text-4xl block mb-1 sm:mb-2">
+                {stat.emoji}
+              </span>
+              <span className="text-lg sm:text-xl font-bold block">
+                {stat.value.toLocaleString("ru")}
+              </span>
+              <span className="text-xs sm:text-sm mt-1 block">
+                {stat.label}
+              </span>
             </div>
           ))}
         </div>

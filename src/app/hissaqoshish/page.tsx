@@ -18,14 +18,14 @@ const HissaQoshish: React.FC = () => {
 
   return (
     <div
-      className={`container mx-auto p-5 ${
+      className={`container mx-auto p-5 max-w-3xl overflow-hidden ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#FDF7F5]"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <div
-        className={`rounded-lg shadow-md p-6 border max-w-2xl mx-auto ${
+        className={`rounded-lg shadow-md p-6 border w-full overflow-hidden ${
           isDarkMode
             ? "bg-[#1E1E1E] text-[#EDEDED] border-gray-700"
             : "bg-[#FFF6F0] text-[#4A1E17] border-gray-300"
@@ -42,11 +42,11 @@ const HissaQoshish: React.FC = () => {
           </a>
         </div>
 
-        <h3 className="text-xl font-bold mt-4 text-center">
+        <h3 className="text-xl font-bold mt-4 text-center break-words">
           Бепул кутубхонага ҳисса қўшиш
         </h3>
 
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center break-words">
           <h4 className="text-lg font-semibold">Карта:</h4>
           <p className="text-lg font-mono">{cardNumber}</p>
           <button
@@ -61,7 +61,7 @@ const HissaQoshish: React.FC = () => {
         </div>
 
         <p
-          className={`mt-4 text-center ${
+          className={`mt-4 text-center break-words ${
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
@@ -98,7 +98,7 @@ const HissaQoshish: React.FC = () => {
           }`}
         >
           <h4 className="text-lg font-semibold">Мақсадимиз:</h4>
-          <p>
+          <p className="break-words">
             Илмли инсонларни кўпайтириш, тўғри диний илимни инсонларга етказиб,
             шу билан Аллоҳ розилигига етиш.
           </p>
@@ -110,7 +110,7 @@ const HissaQoshish: React.FC = () => {
           }`}
         >
           <h4 className="text-lg font-semibold">Қуръони Каримдан оят:</h4>
-          <p>
+          <p className="break-words">
             &lsquo;Молларини кечасию кундузи яширин ва ошкора нафақа
             қиладиганларнинг ажрлари Робблари ҳузуридадир. Уларга хавф йўқ ва
             улар маҳзун ҳам бўлмаслар.&lsquo;
@@ -133,7 +133,7 @@ const HissaQoshish: React.FC = () => {
         </div>
 
         <p
-          className={`text-center mt-4 ${
+          className={`text-center mt-4 break-words ${
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >

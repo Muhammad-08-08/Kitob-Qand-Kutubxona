@@ -31,32 +31,36 @@ export default function TopReaders({ readers }: TopReadersProps) {
 
   return (
     <Card
-      className={`shadow-lg h-full transition-colors duration-300 rounded-xl p-4 ${
+      className={`w-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl">🏅 Top Kitobxonlar</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">🏅 Top Kitobxonlar</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {topReaders.map((reader) => (
             <div
               key={reader.lastName}
-              className={`p-4 rounded-xl shadow-md flex items-center gap-3 transition-colors duration-300 cursor-pointer hover:scale-105 ${
+              className={`p-3 rounded-lg shadow-md hover:shadow-lg flex items-center gap-3 transition-all duration-300 cursor-pointer hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-200"
                   : "bg-[#EDE3DC] hover:bg-[#E4D4C8] text-[#5B2C25]"
               }`}
             >
-              <span className="text-4xl text-gray-500">
+              <span className="text-3xl sm:text-4xl text-gray-400 sm:text-gray-500">
                 <User />
               </span>
               <div className="text-left">
-                <span className="text-2xl font-bold block">{reader.count}</span>
-                <span className="text-sm text-gray-400">{reader.lastName}</span>
+                <span className="text-xl sm:text-2xl font-bold block">
+                  {reader.count}
+                </span>
+                <span className="text-xs sm:text-sm text-gray-500">
+                  {reader.lastName}
+                </span>
               </div>
             </div>
           ))}

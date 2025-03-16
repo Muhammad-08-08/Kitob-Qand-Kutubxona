@@ -25,11 +25,13 @@ const Statistics: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-10">Yuklanmoqda...</div>;
+    return <div className="text-center py-10 text-lg">⏳ Yuklanmoqda...</div>;
   }
 
   if (!statistics) {
-    return <div className="text-center py-10">Statistika mavjud emas</div>;
+    return (
+      <div className="text-center py-10 text-lg">❌ Statistika mavjud emas</div>
+    );
   }
 
   const statItems = [
@@ -57,38 +59,46 @@ const Statistics: React.FC = () => {
 
   return (
     <section
-      className={`container mx-auto py-8 px-4 sm:px-8 lg:px-16 ${
+      className={`w-full container mx-auto py-8 px-4 sm:px-8 md:px-16 transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#FDF7F5]"
           : "bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
       <div className="text-left xl:text-center">
-        <h2 className="text-3xl font-bold">Kutubxona statistikasi</h2>
-        <Link href={"/statistika"}>
-          <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A]">
-            To'liq ko'rish
+        <h2 className="text-2xl sm:text-3xl font-bold">
+          📊 Kutubxona statistikasi
+        </h2>
+        <Link href="/statistika">
+          <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A] transition-colors duration-200">
+            ➡️ To'liq ko'rish
           </p>
         </Link>
       </div>
 
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-14">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10">
         {statItems.map((item, index) => (
           <div
             key={index}
-            className={`p-4 rounded-lg shadow-md text-center ${
+            className={`p-5 rounded-lg shadow-lg hover:shadow-xl text-center transition-all duration-300 transform hover:scale-105 ${
               isDarkMode
                 ? "bg-[#252525] text-[#FDF7F5]"
                 : "bg-[#F0EAE8] text-[#5B2C25]"
             }`}
           >
             <div className="mb-3 flex justify-center">
-              <Image src={item.image} alt={item.label} width={64} height={64} />
+              <Image
+                src={item.image}
+                alt={item.label}
+                width={64}
+                height={64}
+                className="opacity-90"
+              />
             </div>
-            <h4 className="text-3xl font-bold">
+            <h4 className="text-2xl sm:text-3xl font-bold">
               {item.value.toLocaleString("ru")}
             </h4>
-            <p className="mt-1 text-xl">{item.label}</p>
+            <p className="mt-1 text-lg sm:text-xl">{item.label}</p>
           </div>
         ))}
       </div>
