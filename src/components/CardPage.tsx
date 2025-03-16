@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import useMyStore from "@/store/my-store";
 import { CardPageType } from "./Type.User";
+import useMyStore from "@/store/my-store";
 
 const CardPage: React.FC<CardPageType> = ({ item }) => {
   const isDarkMode = useMyStore((state) => state.isDarkMode);
@@ -23,9 +23,9 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
         <Image
           src={item.image || "no image"}
           alt={item.name || "no image"}
-          width={200}
-          height={200}
-          className="max-h-full max-w-full object-contain"
+          width={0}
+          height={0}
+          className="w-full h-auto object-contain"
         />
       </div>
 

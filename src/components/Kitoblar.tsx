@@ -23,7 +23,7 @@ const Kitoblar: React.FC = () => {
   useEffect(() => {
     const delay = setTimeout(() => {
       setSearchQuery(inputSearchValue);
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(delay);
   }, [inputSearchValue]);

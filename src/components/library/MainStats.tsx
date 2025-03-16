@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useMyStore from "@/store/my-store";
 
@@ -64,11 +63,11 @@ export default function MainStats({ totalStats }: MainStatsProps) {
               className={`text-center p-3 rounded-lg shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
-                  : "bg-[#FAE3D9] hover:bg-[#F2C2A2] text-[#5B2C25]"
+                  : "bg-[#f5ebe8] hover:bg-[#e7d8d3] text-[#5B2C25]"
               }`}
             >
               <span className="text-4xl block mb-2">{stat.emoji}</span>
-              <span className="text-2xl font-bold block">{stat.value}</span>
+              <span className="text-2xl font-bold block">{stat.value.toLocaleString("ru")}</span>
               <span className="text-sm mt-1 block">{stat.label}</span>
             </div>
           ))}

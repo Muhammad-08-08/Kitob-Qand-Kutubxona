@@ -40,7 +40,7 @@ const ZarurKitoblar: React.FC = () => {
             className={`p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
               isDarkMode
                 ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
-                : "bg-[#FAE3D9] text-[#5B2C25] hover:bg-[#F2C2A2]"
+                : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
             }`}
           >
             <p className="font-bold text-lg mb-2">

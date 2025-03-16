@@ -1,7 +1,6 @@
 "use client";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
 import useMyStore from "../store/my-store";
 import Image from "next/image";
 import teacherIcon from "../images/man-teacher.png";
@@ -9,6 +8,8 @@ import booksIcon from "../images/books.png";
 import checkIcon from "../images/check-mark.png";
 import bookIcon from "../images/open-book.png";
 import { StatisticsData } from "./Type.User";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Statistics: React.FC = () => {
   const [statistics, setStatistics] = useState<StatisticsData>();
@@ -64,9 +65,11 @@ const Statistics: React.FC = () => {
     >
       <div className="text-left xl:text-center">
         <h2 className="text-3xl font-bold">Kutubxona statistikasi</h2>
-        <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A]">
-          To"liq ko"rish
-        </p>
+        <Link href={"/statistika"}>
+          <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A]">
+            To'liq ko'rish
+          </p>
+        </Link>
       </div>
 
       <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-14">

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import useMyStore from "../store/my-store";
-import Image from "next/image";
+import { FiMoon, FiSun } from "react-icons/fi";
 import Link from "next/link";
-import logo from "../images/kitob_qand_logo.svg";
-import { Switch } from "antd";
+import logoImage from "../images/kitob_qand_logo.svg";
+import Image from "next/image";
 
 const Navbar: React.FC = () => {
   const { isDarkMode, toggleDarkMode, initDarkMode } = useMyStore();
@@ -34,11 +34,10 @@ const Navbar: React.FC = () => {
         <Link href="/">
           <div className="flex items-center gap-3 cursor-pointer">
             <Image
-              src={logo}
+              src={logoImage}
               alt="Kitob Qand logo"
               width={48}
               height={48}
-              priority
               className={isDarkMode ? "invert brightness-0" : ""}
             />
             <span className="text-xl font-bold">Kitob Qand</span>
@@ -62,11 +61,17 @@ const Navbar: React.FC = () => {
           </nav>
 
           <div className="flex gap-4 items-center">
-            <Switch
-              checked={isDarkMode}
-              onChange={toggleDarkMode}
-              className="!m-0 flex items-center bg-gray-300 dark:bg-gray-700"
-            />
+            <div
+              onClick={toggleDarkMode}
+              className="cursor-pointer flex items-center p-2 rounded-lg"
+              style={{ width: "70px", height: "40px" }}
+            >
+              {isDarkMode ? (
+                <FiMoon size={30} className="transition-all" />
+              ) : (
+                <FiSun size={30} className="transition-all" />
+              )}
+            </div>
 
             <button
               className="xl:hidden text-2xl"

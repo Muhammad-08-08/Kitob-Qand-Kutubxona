@@ -4,6 +4,7 @@ import Image from "next/image";
 import useMyStore from "@/store/my-store";
 import logo from "../images/kitob_qand_logo.svg";
 import Link from "next/link";
+import { FaTelegram } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const { isDarkMode } = useMyStore();
@@ -31,8 +32,8 @@ const Footer: React.FC = () => {
           kelishilgan muddatga o&#39;qib turish uchun olib ketishingiz mumkin.
           Bu mutlaqo bepul. Alloh roziligi uchun. Kutubxonaga ehson qilib pul
           bilan yoki kitob bilan savob manbaini hosil qilishingiz mumkin. Har
-          bir o&#39;qilgan kitobda sizga savob borib turadi inshaAlloh.
-          Sadaqai Joriyaining afzali ilmga qilinganidir.
+          bir o&#39;qilgan kitobda sizga savob borib turadi inshaAlloh. Sadaqai
+          Joriyaining afzali ilmga qilinganidir.
         </p>
         <div className="flex flex-col sm:flex-row justify-around my-10 mx-auto">
           <Link href={"/"}>
@@ -54,13 +55,7 @@ const Footer: React.FC = () => {
             </div>
           </Link>
           <div className="flex items-center gap-4 w-full sm:w-auto justify-center sm:justify-start">
-            <Image
-              src="/images/telegramm.png"
-              alt="Telegram kanal"
-              width={80}
-              height={80}
-              className="w-16 sm:w-20"
-            />
+            <FaTelegram size={60} className="transition-all" />
             <div>
               <h4
                 className={`font-bold text-2xl sm:text-3xl ${

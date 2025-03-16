@@ -66,7 +66,7 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
       onClick={onClose}
     >
       <div
-        className={`w-full max-w-[1000px] ${
+        className={`w-full h-[600px] max-w-[1000px] ${
           isDarkMode
             ? "bg-[#1E1E1E] text-[#EDEDED]"
             : "bg-[#FDF7F5] text-[#5B2C25]"
