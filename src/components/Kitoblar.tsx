@@ -72,7 +72,7 @@ const Kitoblar: React.FC = () => {
       className={`min-h-screen p-5 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#FDF7F5]"
-          : "bg-[#FDF7F5] text-[#5B2C25]"
+          : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="max-w-full lg:max-w-[1100px] mx-auto">

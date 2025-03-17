@@ -62,7 +62,7 @@ const Statistics: React.FC = () => {
       className={`w-full container mx-auto py-8 px-4 sm:px-8 md:px-16 transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#FDF7F5]"
-          : "bg-[#FDF7F5] text-[#5B2C25]"
+          : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="text-left xl:text-center">

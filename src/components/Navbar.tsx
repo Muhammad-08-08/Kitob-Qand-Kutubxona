@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
   }, [isDarkMode, initDarkMode]);
 
   return (
-    <header className="container mx-auto w-full transition-colors duration-300 relative z-50 bg-[#FDF7F5] text-[#5B2C25] dark:bg-[#1E1E1E] dark:text-[#EDEDED]">
+    <header className="container mx-auto w-full transition-colors duration-300 relative z-50 bg-[#fff] text-[#5B2C25] dark:bg-[#1E1E1E] dark:text-[#EDEDED]">
       <div className="flex justify-between items-center py-3 px-4">
         <Link href="/">
           <div className="flex items-center gap-3 cursor-pointer">

@@ -21,7 +21,7 @@ const HissaQoshish: React.FC = () => {
       className={`container mx-auto p-5 max-w-3xl overflow-hidden ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#FDF7F5]"
-          : "bg-[#FDF7F5] text-[#5B2C25]"
+          : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div

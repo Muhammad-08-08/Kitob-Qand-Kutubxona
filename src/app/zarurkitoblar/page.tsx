@@ -29,7 +29,7 @@ const ZarurKitoblar: React.FC = () => {
       className={`relative z-0 container mx-auto xl:px-24 p-4 transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
-          : "bg-[#FDF7F5] text-[#5B2C25]"
+          : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <h2 className="text-xl md:text-2xl font-bold text-center mb-6">

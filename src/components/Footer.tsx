@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   return (
     <div
       className={`container mx-auto px-4 ${
-        isDarkMode ? "bg-[#1E1E1E] text-white" : "bg-[#FDF7F5] text-[#5B2C25]"
+        isDarkMode ? "bg-[#1E1E1E] text-white" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="border-b-2 border-gray-600 mb-5">

@@ -15,7 +15,7 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
     <div
       className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md transition-all duration-300 ${
         isDarkMode
-          ? "border-[#1E1E1E] bg-[#1E1E1E] text-[#FDF7F5]"
+          ? "bg-[#1E1E1E] text-[#FDF7F5] border border-gray-800"
           : "border-[#A06A5A] bg-[#FDF7F5] text-[#5B2C25]"
       }`}
     >
@@ -46,11 +46,11 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
         </p>
 
         <button
-          className={`px-6 sm:px-10 py-2 w-max mx-auto rounded-md text-xs sm:text-sm font-medium transition-all duration-300 ${
+          className={`px-6 sm:px-10 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 ${
             isDarkMode
               ? "bg-[#252525] text-[#FDF7F5]"
               : allBusy
-              ? "bg-[#5B2C25] text-white"
+              ? "bg-[#f1c1a0]"
               : "bg-[#954930] text-white"
           }`}
         >

@@ -15,7 +15,7 @@ const Manzil: React.FC = () => {
       className={`flex items-center justify-center h-screen px-4 sm:px-0 transition-colors duration-300 container mx-auto ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
-          : "bg-[#FDF7F5] text-[#5B2C25]"
+          : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div

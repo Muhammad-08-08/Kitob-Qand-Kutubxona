@@ -129,7 +129,7 @@
 }
 
 body {
-  @apply transition-colors duration-300 bg-[#FDF7F5] text-[#5B2C25];
+  @apply transition-colors duration-300 bg-[#fff] text-[#5B2C25];
 }
 
 .dark body {

@@ -79,7 +79,7 @@ const LibraryStatistics: React.FC = () => {
       className={`min-h-screen py-6 p-2 md:px-4 transition-all duration-300 ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED]"
-          : "bg-[#FDF7F5] text-[#5B2C25]"
+          : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="max-w-7xl mx-auto">
