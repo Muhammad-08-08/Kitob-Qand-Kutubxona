@@ -81,12 +81,12 @@ export default function TopBooks({ books }: TopBooksProps) {
               {showAllBooks ? (
                 <>
                   <ChevronUp size={14} />
-                  <span>Kamroq ko'rsatish</span>
+                  <span>{"Kamroq ko'rsatish"}</span>
                 </>
               ) : (
                 <>
                   <ChevronDown size={14} />
-                  <span>Ko'proq ko'rsatish</span>
+                  <span>{"Ko'proq ko'rsatish"}</span>
                 </>
               )}
             </button>

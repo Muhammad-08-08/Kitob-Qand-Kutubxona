@@ -71,7 +71,7 @@ const Statistics: React.FC = () => {
         </h2>
         <Link href="/statistika">
           <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A] transition-colors duration-200">
-            ➡️ To'liq ko'rish
+            {"➡️ To'liq ko'rish"}
           </p>
         </Link>
       </div>

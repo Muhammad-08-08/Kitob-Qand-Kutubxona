@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
             href="/hissaqoshish"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
           >
-            Hissa qo'shish
+           {"Hissa qo'shish"}
           </Link>
           <Link
             href="/zarurkitoblar"
@@ -99,7 +99,7 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
               >
-                Hissa qo'shish
+                {"Hissa qo'shish"}
               </Link>
               <Link
                 href="/zarurkitoblar"

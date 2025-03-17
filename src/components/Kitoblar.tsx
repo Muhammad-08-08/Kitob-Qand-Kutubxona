@@ -99,7 +99,7 @@ const Kitoblar: React.FC = () => {
               }`}
               onClick={() => handleFilter(false)}
             >
-              Bo'sh
+              {"Bo'sh"}
             </button>
             <button
               className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${

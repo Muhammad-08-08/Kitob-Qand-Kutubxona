@@ -28,7 +28,7 @@ export default function AdditionalStats({ totalStats }: TotalStatsType) {
     >
       <CardHeader className="pb-2">
         <CardTitle className="text-lg sm:text-xl">
-          🕰️ Qo'shimcha Ma'lumotlar
+          {"🕰️ Qo'shimcha Ma'lumotlar"}
         </CardTitle>
       </CardHeader>
       <CardContent>
