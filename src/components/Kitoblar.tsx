@@ -138,11 +138,6 @@ const Kitoblar: React.FC = () => {
             <p className="text-lg font-semibold text-gray-500">
               Hech qanday kitob topilmadi
             </p>
-            <Image
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFt7AgX2KbHPoO7-ZrgnF-lnjfu2m3iwmlw&s"
-              alt="No Data"
-              className="w-48 mt-4"
-            />
           </div>
         )}
         {!loading && (
