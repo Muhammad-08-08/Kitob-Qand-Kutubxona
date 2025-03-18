@@ -24,15 +24,15 @@ const Navbar: React.FC = () => {
     <header className="container mx-auto w-full transition-colors duration-300 relative z-50 bg-[#fff] text-[#5B2C25] dark:bg-[#1E1E1E] dark:text-[#EDEDED]">
       <div className="flex justify-between items-center py-3 px-4">
         <Link href="/">
-          <div className="flex items-center gap-3 cursor-pointer">
+          <div className="flex items-center gap-2 sm:gap-3 cursor-pointer">
             <Image
               src={logoImage}
               alt="Kitob Qand logo"
-              width={48}
-              height={48}
-              className="dark:invert dark:brightness-0"
+              width={0}
+              height={0}
+              className="w-8 h-8 sm:w-13 sm:h-13 dark:invert dark:brightness-0"
             />
-            <span className="text-xl font-bold">Kitob Qand</span>
+            <span className="text-md sm:text-xl font-bold">Kitob Qand</span>
           </div>
         </Link>
 
@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
             href="/hissaqoshish"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
           >
-           {"Hissa qo'shish"}
+            {"Hissa qo'shish"}
           </Link>
           <Link
             href="/zarurkitoblar"

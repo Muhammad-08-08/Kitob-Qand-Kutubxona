@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import axios from "axios";
-import { User } from "lucide-react";
+import { ChevronDown, ChevronUp, User } from "lucide-react";
 import useMyStore from "@/store/my-store";
 
 const API_URL = "https://library.softly.uz/api/app/stats";
@@ -20,6 +20,7 @@ interface TopReadersProps {
 export default function TopReaders({ readers }: TopReadersProps) {
   const { isDarkMode } = useMyStore();
   const [topReaders, setTopReaders] = useState<Reader[]>(readers || []);
+  const [showAllReaders, setShowAllReaders] = useState<boolean>(false);
 
   useEffect(() => {
     if (!readers) {
@@ -29,9 +30,11 @@ export default function TopReaders({ readers }: TopReadersProps) {
     }
   }, [readers]);
 
+  const displayedReaders = showAllReaders ? topReaders : topReaders.slice(0, 9);
+
   return (
     <Card
-      className={`w-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
+      className={`w-full h-[420px] shadow-md transition-colors duration-300 rounded-xl p-4 overflow-y-auto ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
@@ -42,7 +45,7 @@ export default function TopReaders({ readers }: TopReadersProps) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {topReaders.map((reader) => (
+          {displayedReaders.map((reader) => (
             <div
               key={reader.lastName}
               className={`p-3 rounded-lg shadow-md hover:shadow-lg flex items-center gap-3 transition-all duration-300 cursor-pointer hover:scale-105 ${
@@ -66,6 +69,24 @@ export default function TopReaders({ readers }: TopReadersProps) {
           ))}
         </div>
       </CardContent>
+          {topReaders.length > 5 && (
+            <button
+              onClick={() => setShowAllReaders(!showAllReaders)}
+              className="w-full mt-2 flex items-center justify-center gap-1 text-sm sm:text-base transition-colors duration-300 cursor-pointer"
+            >
+              {showAllReaders ? (
+                <>
+                  <ChevronUp size={14} />
+                  <span>{"Kamroq ko'rsatish"}</span>
+                </>
+              ) : (
+                <>
+                  <ChevronDown size={14} />
+                  <span>{"Ko'proq ko'rsatish"}</span>
+                </>
+              )}
+            </button>
+          )}
     </Card>
   );
 }

@@ -34,7 +34,7 @@ export default function TopBooks({ books }: TopBooksProps) {
 
   return (
     <Card
-      className={`w-full shadow-md transition-colors duration-300 rounded-xl p-4 ${
+      className={`w-full h-[420px] shadow-md transition-colors duration-300 rounded-xl p-4 overflow-y-auto ${
         isDarkMode
           ? "bg-[#1E1E1E] text-[#EDEDED] border border-gray-700"
           : "bg-[#FDF7F5] text-[#5B2C25]"
@@ -76,7 +76,7 @@ export default function TopBooks({ books }: TopBooksProps) {
           {topBooks.length > 5 && (
             <button
               onClick={() => setShowAllBooks(!showAllBooks)}
-              className="w-full mt-2 flex items-center justify-center gap-1 text-sm sm:text-base transition-colors duration-300"
+              className="w-full mt-2 flex items-center justify-center gap-1 text-sm sm:text-base transition-colors duration-300 cursor-pointer"
             >
               {showAllBooks ? (
                 <>
