@@ -7,6 +7,7 @@ import CardPage from "./CardPage";
 import { TopMenuType } from "./Type.User";
 import KardModal from "./KardModal";
 import { Pagination } from "./ui/pagination";
+import Image from "next/image";
 
 const Kitoblar: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -70,9 +71,7 @@ const Kitoblar: React.FC = () => {
   return (
     <div
       className={`min-h-screen p-5 ${
-        isDarkMode
-          ? "bg-[#1E1E1E] text-[#FDF7F5]"
-          : "bg-[#fff] text-[#5B2C25]"
+        isDarkMode ? "bg-[#1E1E1E] text-[#FDF7F5]" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="max-w-full lg:max-w-[1100px] mx-auto">
@@ -126,13 +125,24 @@ const Kitoblar: React.FC = () => {
           <div className="w-full flex justify-center items-center py-10">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
           </div>
-        ) : (
+        ) : books?.items.length ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {books?.items.map((item) => (
+            {books.items.map((item) => (
               <div key={item.id} onClick={() => openModal(item.id)}>
                 <CardPage item={item} />
               </div>
             ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-10">
+            <p className="text-lg font-semibold text-gray-500">
+              Hech qanday kitob topilmadi
+            </p>
+            <Image
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFt7AgX2KbHPoO7-ZrgnF-lnjfu2m3iwmlw&s"
+              alt="No Data"
+              className="w-48 mt-4"
+            />
           </div>
         )}
         {!loading && (
