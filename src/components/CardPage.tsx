@@ -50,8 +50,8 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
             isDarkMode
               ? "bg-[#252525] text-[#FDF7F5]"
               : allBusy
-              ? "bg-[#f1c1a0]"
-              : "bg-[#954930] text-white"
+              ? "bg-[#773000] text-white"
+              : "bg-[#f1c1a0]"
           }`}
         >
           {allBusy ? "Band" : "Bo'sh"}

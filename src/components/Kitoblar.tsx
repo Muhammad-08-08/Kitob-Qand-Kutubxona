@@ -7,7 +7,6 @@ import CardPage from "./CardPage";
 import { TopMenuType } from "./Type.User";
 import KardModal from "./KardModal";
 import { Pagination } from "./ui/pagination";
-import Image from "next/image";
 
 const Kitoblar: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
