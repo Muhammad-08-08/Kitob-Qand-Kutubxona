@@ -16,24 +16,34 @@ export const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
 }) => {
   const generatePageNumbers = () => {
-    const pages = new Set<number | string>();
+    const pages: (number | string)[] = [];
 
-    pages.add(1);
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
 
-    const left = Math.max(2, page - 3); 
-    const right = Math.min(totalPages - 1, page + 3);
+      if (page > 3) {
+        pages.push("...");
+      }
 
-    if (left > 2) pages.add("...");
+      const start = Math.max(2, page - 1);
+      const end = Math.min(totalPages - 1, page + 1);
 
-    for (let i = left; i <= right; i++) {
-      pages.add(i);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (page < totalPages - 2) {
+        pages.push("...");
+      }
+
+      pages.push(totalPages);
     }
 
-    if (right < totalPages - 1) pages.add("...");
-
-    if (totalPages > 1) pages.add(totalPages);
-
-    return Array.from(pages);
+    return pages;
   };
 
   return (
