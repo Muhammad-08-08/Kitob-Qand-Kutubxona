@@ -96,7 +96,7 @@ const Statistics: React.FC = () => {
               <h4 className="text-2xl sm:text-3xl font-bold">
                 {item.value.toLocaleString("ru")}
               </h4>
-              <p className="mt-1 text-lg sm:text-xl">{item.label}</p>
+              <p className="mt-1 text-lg sm:text-xl font-bold">{item.label}</p>
             </div>
           </Link>
         ))}

@@ -80,7 +80,7 @@ const Kitoblar: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div className="flex flex-wrap gap-2">
             <button
-              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
+              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base cursor-pointer ${
                 busy === null
                   ? "bg-[#f1c1a0] text-white"
                   : "bg-gray-300 text-black"
@@ -90,7 +90,7 @@ const Kitoblar: React.FC = () => {
               Barchasi
             </button>
             <button
-              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
+              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base cursor-pointer ${
                 busy === false
                   ? "bg-[#f1c1a0] text-white"
                   : "bg-gray-300 text-black"
@@ -100,7 +100,7 @@ const Kitoblar: React.FC = () => {
               {"Bo'sh"}
             </button>
             <button
-              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
+              className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base cursor-pointer ${
                 busy === true
                   ? "bg-[#773000] text-white"
                   : "bg-gray-300 text-black"
