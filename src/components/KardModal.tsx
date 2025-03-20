@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -40,10 +40,10 @@ interface Status {
   returningDate: string;
 }
 
-const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
+const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
   const { isDarkMode } = useMyStore();
   const [productPage, setProductPage] = useState<Book | null>(null);
-  const [qaytishi, setQaytishi] = useState<Status[] | null>(null);
+  const [qaytishi, setQaytishi] = useState<Record<string, number> | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,7 +59,17 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
       .get(
         `https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`
       )
-      .then((res) => setQaytishi(res.data.length > 0 ? res.data : null))
+      .then((res) => {
+        const groupedDates = res.data.reduce(
+          (acc: Record<string, number>, item: Status) => {
+            const date = new Date(item.returningDate).toLocaleDateString("ru");
+            acc[date] = (acc[date] || 0) + 1;
+            return acc;
+          },
+          {}
+        );
+        setQaytishi(Object.keys(groupedDates).length > 0 ? groupedDates : null);
+      })
       .catch(() => console.error("Xatolik yuzaga keldi"))
       .finally(() => setLoading(false));
   }, [id, isOpen]);
@@ -67,16 +77,16 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
   const boshKitoblar = productPage?.stocks.filter((i) => !i.busy).length || 0;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl p-6">
-        <DialogHeader>
+    <Drawer open={isOpen} onOpenChange={onClose}>
+      <DrawerContent className="h-[85vh] max-w-3xl w-full mx-auto p-6 rounded-t-2xl shadow-lg ">
+        <DrawerHeader>
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={onClose}>
               <ArrowLeft className="w-5 h-5" />
             </Button>
-            <DialogTitle>Kitob tafsilotlari</DialogTitle>
+            <DrawerTitle>Kitob tafsilotlari</DrawerTitle>
           </div>
-        </DialogHeader>
+        </DrawerHeader>
 
         {loading || !productPage ? (
           <div className="space-y-4">
@@ -86,14 +96,14 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
             <Skeleton className="h-4 w-1/4" />
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full md:w-1/3">
+          <div className="flex flex-col md:flex-row gap-6 py-4 overflow-y-auto">
+            <div className="w-full h-[50vh] md:w-1/3 flex justify-center">
               <Image
                 src={productPage.image}
                 alt={productPage.name}
-                width={200}
-                height={280}
-                className="rounded-lg shadow-md mx-auto"
+                width={240}
+                height={340}
+                className="rounded-lg shadow-md"
               />
             </div>
             <div className="flex-1 space-y-3">
@@ -112,17 +122,15 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
                 <div className="mt-4">
                   <h4 className="font-semibold">📅 Bo‘sh muddatlar:</h4>
                   <div className="space-y-2 mt-2">
-                    {qaytishi.map((item) => (
+                    {Object.entries(qaytishi).map(([date, count]) => (
                       <div
-                        key={item.id}
-                        className="flex justify-between p-2 border rounded-md"
+                        key={date}
+                        className={`flex justify-between p-2 border rounded-md ${
+                          isDarkMode ? "border-gray-700" : "border-gray-300"
+                        }`}
                       >
-                        <p>1 ta</p>
-                        <p>
-                          {new Date(item.returningDate).toLocaleDateString(
-                            "ru"
-                          )}
-                        </p>
+                        <p>{count} ta</p>
+                        <p>{date}</p>
                       </div>
                     ))}
                   </div>
@@ -131,9 +139,9 @@ const KardModal: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
             </div>
           </div>
         )}
-      </DialogContent>
-    </Dialog>
+      </DrawerContent>
+    </Drawer>
   );
 };
 
-export default KardModal;
+export default KardDrawer;

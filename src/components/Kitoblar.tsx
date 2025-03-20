@@ -125,7 +125,7 @@ const Kitoblar: React.FC = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
           </div>
         ) : books?.items.length ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {books.items.map((item) => (
               <div key={item.id} onClick={() => openModal(item.id)}>
                 <CardPage item={item} />
