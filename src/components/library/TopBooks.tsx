@@ -40,7 +40,7 @@ export default function TopBooks({ books }: TopBooksProps) {
         <CardTitle className="text-lg sm:text-xl">🏆 Top Kitoblar</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 sm:grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {topBooks.map((book, index) => (
             <div
               key={book.name}
