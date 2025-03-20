@@ -4,8 +4,8 @@ import useMyStore from "@/store/my-store";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CardPage from "./CardPage";
+import KardDrawer from "./KardModal";
 import { TopMenuType } from "./Type.User";
-import KardModal from "./KardModal";
 import { Pagination } from "./ui/pagination";
 
 const Kitoblar: React.FC = () => {
@@ -82,7 +82,7 @@ const Kitoblar: React.FC = () => {
             <button
               className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base cursor-pointer ${
                 busy === null
-                  ? "bg-[#f1c1a0] text-white"
+                  ? "bg-[#773000] text-white"
                   : "bg-gray-300 text-black"
               }`}
               onClick={() => handleFilter(null)}
@@ -148,7 +148,7 @@ const Kitoblar: React.FC = () => {
         )}
       </div>
       {selectedBookId !== undefined && (
-        <KardModal
+        <KardDrawer
           id={selectedBookId}
           isOpen={modalOpen}
           onClose={closeModal}
