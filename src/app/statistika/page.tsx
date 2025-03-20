@@ -83,7 +83,7 @@ const LibraryStatistics: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-bold text-center mb-6">
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-6">
           Kutubxona Statistikasi
         </h1>
 

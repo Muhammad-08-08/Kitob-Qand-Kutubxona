@@ -41,12 +41,14 @@ const Footer: React.FC = () => {
               <Image
                 src={logo}
                 alt="Kitob Qand logo"
-                width={64}
-                height={64}
-                className={`sm:h-20 ${isDarkMode ? "invert brightness-0" : ""}`}
+                width={0}
+                height={0}
+                className={`transition-all w-11 h-11 lg:w-16 lg:h-16 ${
+                  isDarkMode ? "invert brightness-0" : ""
+                }`}
               />
               <span
-                className={`text-2xl sm:text-3xl font-bold ${
+                className={`text-xl md:text-2xl lg:text-3xl font-bold ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
@@ -55,10 +57,13 @@ const Footer: React.FC = () => {
             </div>
           </Link>
           <div className="flex items-center gap-4 w-full sm:w-auto justify-center sm:justify-start">
-            <FaTelegram size={60} className="transition-all" />
+            <FaTelegram
+              size={0}
+              className="transition-all w-11 h-11 lg:w-16 lg:h-16"
+            />
             <div>
               <h4
-                className={`font-bold text-2xl sm:text-3xl ${
+                className={`text-xl md:text-2xl lg:text-3xl font-bold  ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
@@ -68,7 +73,7 @@ const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://t.me/mehr_kutubxonasi"
-                className="text-blue-500 hover:text-blue-700 text-2xl sm:text-3xl font-medium"
+                className="text-blue-500 hover:text-blue-700 text-xl md:text-2xl lg:text-3xl font-medium"
               >
                 @mehr_kutubxonasi
               </a>

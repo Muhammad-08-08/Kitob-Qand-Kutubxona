@@ -78,8 +78,14 @@ const Navbar: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex justify-end">
-          <div className="w-72 min-w-[250px] h-full shadow-lg p-5 flex flex-col gap-6 transition-all duration-300 rounded-l-lg bg-white text-gray-900 dark:bg-[#1E1E1E] dark:text-[#EDEDED]">
+        <div
+          className="fixed inset-0 bg-black/50 bg-opacity-50 flex justify-end"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <div
+            className="w-72 min-w-[250px] h-full shadow-lg p-5 flex flex-col gap-6 transition-all duration-300 rounded-l-lg bg-white text-gray-900 dark:bg-[#1E1E1E] dark:text-[#EDEDED]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               className="self-end text-3xl mb-4"
               onClick={() => setIsMenuOpen(false)}
