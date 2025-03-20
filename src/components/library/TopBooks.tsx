@@ -19,7 +19,6 @@ interface TopBooksProps {
 
 export default function TopBooks({ books }: TopBooksProps) {
   const { isDarkMode } = useMyStore();
-  const [showAllBooks, setShowAllBooks] = useState(false);
   const [topBooks, setTopBooks] = useState<Book[]>(books || []);
 
   useEffect(() => {
@@ -29,8 +28,6 @@ export default function TopBooks({ books }: TopBooksProps) {
       });
     }
   }, [books]);
-
-  const displayedBooks = showAllBooks ? topBooks : topBooks.slice(0, 5);
 
   return (
     <Card
@@ -45,7 +42,7 @@ export default function TopBooks({ books }: TopBooksProps) {
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
-          {displayedBooks.map((book, index) => (
+          {topBooks.map((book, index) => (
             <div
               key={book.name}
               className={`flex items-center justify-between p-2 rounded-lg transition-colors duration-300 ${
@@ -73,24 +70,6 @@ export default function TopBooks({ books }: TopBooksProps) {
               </span>
             </div>
           ))}
-          {topBooks.length > 5 && (
-            <button
-              onClick={() => setShowAllBooks(!showAllBooks)}
-              className="w-full mt-2 flex items-center justify-center gap-1 text-sm sm:text-base transition-colors duration-300 cursor-pointer"
-            >
-              {showAllBooks ? (
-                <>
-                  <ChevronUp size={14} />
-                  <span>{"Kamroq ko'rsatish"}</span>
-                </>
-              ) : (
-                <>
-                  <ChevronDown size={14} />
-                  <span>{"Ko'proq ko'rsatish"}</span>
-                </>
-              )}
-            </button>
-          )}
         </div>
       </CardContent>
     </Card>

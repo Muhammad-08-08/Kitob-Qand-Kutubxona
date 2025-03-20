@@ -20,7 +20,6 @@ interface TopReadersProps {
 export default function TopReaders({ readers }: TopReadersProps) {
   const { isDarkMode } = useMyStore();
   const [topReaders, setTopReaders] = useState<Reader[]>(readers || []);
-  const [showAllReaders, setShowAllReaders] = useState<boolean>(false);
 
   useEffect(() => {
     if (!readers) {
@@ -29,8 +28,6 @@ export default function TopReaders({ readers }: TopReadersProps) {
       });
     }
   }, [readers]);
-
-  const displayedReaders = showAllReaders ? topReaders : topReaders.slice(0, 9);
 
   return (
     <Card
@@ -45,13 +42,13 @@ export default function TopReaders({ readers }: TopReadersProps) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {displayedReaders.map((reader) => (
+          {topReaders.map((reader) => (
             <div
               key={reader.lastName}
               className={`p-3 rounded-lg shadow-md hover:shadow-lg flex items-center gap-3 transition-all duration-300 cursor-pointer hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-200"
-                  : "bg-[#EDE3DC] hover:bg-[#E4D4C8] text-[#5B2C25]"
+                  : "bg-[#f5ebe8] hover:bg-[#e7d8d3] text-[#5B2C25]"
               }`}
             >
               <span className="text-3xl sm:text-4xl text-gray-400 sm:text-gray-500">
@@ -69,24 +66,6 @@ export default function TopReaders({ readers }: TopReadersProps) {
           ))}
         </div>
       </CardContent>
-          {topReaders.length > 5 && (
-            <button
-              onClick={() => setShowAllReaders(!showAllReaders)}
-              className="w-full mt-2 flex items-center justify-center gap-1 text-sm sm:text-base transition-colors duration-300 cursor-pointer"
-            >
-              {showAllReaders ? (
-                <>
-                  <ChevronUp size={14} />
-                  <span>{"Kamroq ko'rsatish"}</span>
-                </>
-              ) : (
-                <>
-                  <ChevronDown size={14} />
-                  <span>{"Ko'proq ko'rsatish"}</span>
-                </>
-              )}
-            </button>
-          )}
     </Card>
   );
 }

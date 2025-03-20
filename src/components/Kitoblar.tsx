@@ -82,7 +82,7 @@ const Kitoblar: React.FC = () => {
             <button
               className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
                 busy === null
-                  ? "bg-blue-500 text-white"
+                  ? "bg-[#f1c1a0] text-white"
                   : "bg-gray-300 text-black"
               }`}
               onClick={() => handleFilter(null)}
@@ -92,7 +92,7 @@ const Kitoblar: React.FC = () => {
             <button
               className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
                 busy === false
-                  ? "bg-green-500 text-white"
+                  ? "bg-[#f1c1a0] text-white"
                   : "bg-gray-300 text-black"
               }`}
               onClick={() => handleFilter(false)}
@@ -102,7 +102,7 @@ const Kitoblar: React.FC = () => {
             <button
               className={`px-3 sm:px-4 py-2 rounded text-sm sm:text-base ${
                 busy === true
-                  ? "bg-red-500 text-white"
+                  ? "bg-[#773000] text-white"
                   : "bg-gray-300 text-black"
               }`}
               onClick={() => handleFilter(true)}

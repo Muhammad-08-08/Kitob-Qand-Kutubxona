@@ -60,9 +60,7 @@ const Statistics: React.FC = () => {
   return (
     <section
       className={`w-full container mx-auto py-8 px-4 sm:px-8 md:px-16 transition-colors duration-300 ${
-        isDarkMode
-          ? "bg-[#1E1E1E] text-[#FDF7F5]"
-          : "bg-[#fff] text-[#5B2C25]"
+        isDarkMode ? "bg-[#1E1E1E] text-[#FDF7F5]" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="text-left xl:text-center">
@@ -78,28 +76,29 @@ const Statistics: React.FC = () => {
 
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10">
         {statItems.map((item, index) => (
-          <div
-            key={index}
-            className={`p-5 rounded-lg shadow-lg hover:shadow-xl text-center transition-all duration-300 transform hover:scale-105 ${
-              isDarkMode
-                ? "bg-[#252525] text-[#FDF7F5]"
-                : "bg-[#F0EAE8] text-[#5B2C25]"
-            }`}
-          >
-            <div className="mb-3 flex justify-center">
-              <Image
-                src={item.image}
-                alt={item.label}
-                width={64}
-                height={64}
-                className="opacity-90"
-              />
+          <Link key={index} href="/statistika">
+            <div
+              className={`p-5 rounded-lg shadow-lg hover:shadow-xl text-center transition-all duration-300 transform hover:scale-105 ${
+                isDarkMode
+                  ? "bg-[#252525] text-[#FDF7F5]"
+                  : "bg-[#F0EAE8] text-[#5B2C25]"
+              }`}
+            >
+              <div className="mb-3 flex justify-center">
+                <Image
+                  src={item.image}
+                  alt={item.label}
+                  width={64}
+                  height={64}
+                  className="opacity-90"
+                />
+              </div>
+              <h4 className="text-2xl sm:text-3xl font-bold">
+                {item.value.toLocaleString("ru")}
+              </h4>
+              <p className="mt-1 text-lg sm:text-xl">{item.label}</p>
             </div>
-            <h4 className="text-2xl sm:text-3xl font-bold">
-              {item.value.toLocaleString("ru")}
-            </h4>
-            <p className="mt-1 text-lg sm:text-xl">{item.label}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
