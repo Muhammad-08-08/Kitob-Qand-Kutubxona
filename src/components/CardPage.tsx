@@ -38,7 +38,7 @@ const CardPage: React.FC<CardPageType> = ({ item }) => {
           {item.name}
         </h3>
         <p
-          className={`text-xs sm:text-sm md:h-8 md:mb-2 ${
+          className={`text-xs truncate sm:text-sm md:h-8 md:mb-2 ${
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >

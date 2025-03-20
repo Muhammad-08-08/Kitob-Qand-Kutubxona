@@ -63,8 +63,8 @@ const Statistics: React.FC = () => {
         isDarkMode ? "bg-[#1E1E1E] text-[#FDF7F5]" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
-      <div className="text-left xl:text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold">
+      <div className="text-center">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
           📊 Kutubxona statistikasi
         </h2>
         <Link href="/statistika">
@@ -74,29 +74,31 @@ const Statistics: React.FC = () => {
         </Link>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10">
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
         {statItems.map((item, index) => (
           <Link key={index} href="/statistika">
             <div
-              className={`p-5 rounded-lg shadow-lg hover:shadow-xl text-center transition-all duration-300 transform hover:scale-105 ${
+              className={`p-4 sm:p-5 rounded-lg shadow-lg hover:shadow-xl text-center transition-all duration-300 transform hover:scale-105 ${
                 isDarkMode
                   ? "bg-[#252525] text-[#FDF7F5]"
                   : "bg-[#F0EAE8] text-[#5B2C25]"
-              }`}
+              }  flex flex-col items-center justify-center h-[140px] sm:h-[180px]`}
             >
               <div className="mb-3 flex justify-center">
                 <Image
                   src={item.image}
                   alt={item.label}
-                  width={64}
-                  height={64}
-                  className="opacity-90"
+                  width={0}
+                  height={0}
+                  className="opacity-90 h-12 w-12 md:h-16 md:w-16"
                 />
               </div>
-              <h4 className="text-2xl sm:text-3xl font-bold">
+              <h4 className="text-xl sm:text-2xl font-bold">
                 {item.value.toLocaleString("ru")}
               </h4>
-              <p className="mt-1 text-lg sm:text-xl font-bold">{item.label}</p>
+              <p className="mt-1 text-base sm:text-lg font-bold">
+                {item.label}
+              </p>
             </div>
           </Link>
         ))}

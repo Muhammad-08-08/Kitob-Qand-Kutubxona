@@ -30,9 +30,9 @@ const Navbar: React.FC = () => {
               alt="Kitob Qand logo"
               width={0}
               height={0}
-              className="w-8 h-8 sm:w-13 sm:h-13 dark:invert dark:brightness-0"
+              className="w-10 h-10 sm:w-13 sm:h-13 dark:invert dark:brightness-0"
             />
-            <span className="text-md sm:text-xl font-bold">Kitob Qand</span>
+            <span className="text-lg sm:text-xl font-bold">Kitob Qand</span>
           </div>
         </Link>
 

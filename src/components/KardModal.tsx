@@ -79,7 +79,7 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
       <DrawerContent className="max-h-[95vh] max-w-3xl w-full mx-auto px-6 rounded-t-2xl shadow-lg ">
-        <DrawerHeader>
+        <DrawerHeader className="mb-0 p-0">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={onClose}>
               <ArrowLeft className="w-5 h-5" />
