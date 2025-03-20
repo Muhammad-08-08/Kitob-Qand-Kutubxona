@@ -40,7 +40,7 @@ export default function TopBooks({ books }: TopBooksProps) {
         <CardTitle className="text-lg sm:text-xl">🏆 Top Kitoblar</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-2">
+        <div className="grid grid-cols-2 sm:grid-cols-1 gap-4">
           {topBooks.map((book, index) => (
             <div
               key={book.name}
@@ -64,7 +64,7 @@ export default function TopBooks({ books }: TopBooksProps) {
                   {book.name}
                 </span>
               </div>
-              <span className="font-semibold text-sm sm:text-base">
+              <span className="font-semibold text-xs sm:text-base">
                 {book.count}
               </span>
             </div>

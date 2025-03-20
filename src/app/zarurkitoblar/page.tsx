@@ -54,7 +54,7 @@ const ZarurKitoblar: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {search.map((item, index) => (
           <div
             key={index}
@@ -67,7 +67,7 @@ const ZarurKitoblar: React.FC = () => {
             <p className="font-bold text-sm md:text-lg mb-2">
               {index + 1}. {item.name}
             </p>
-            <div className="flex justify-between text-xs md:text-sm">
+            <div className="flex flex-wrap justify-between text-xs md:text-sm">
               <span>📖 Umumiy: {item.total} ta</span>
               <span>🔒 Band: {item.busies} ta</span>
             </div>
