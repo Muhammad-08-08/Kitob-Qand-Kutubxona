@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import axios from "axios";
 import useMyStore from "@/store/my-store";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const API_URL = "https://library.softly.uz/api/app/stats";
 
