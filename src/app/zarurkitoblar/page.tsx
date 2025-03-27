@@ -89,7 +89,7 @@ const ZarurKitoblar: React.FC = () => {
       ) : (
         <div className="flex justify-center items-center py-10">
           <p className="text-lg font-semibold text-gray-500">
-            Ma'lumot topilmadi
+            {"Ma'lumot topilmadi"}
           </p>
         </div>
       )}
