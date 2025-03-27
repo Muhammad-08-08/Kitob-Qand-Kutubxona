@@ -72,10 +72,10 @@ const Footer: React.FC = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://t.me/mehr_kutubxonasi"
+                href="https://t.me/kitobqand"
                 className="text-blue-500 hover:text-blue-700 text-xl md:text-2xl lg:text-3xl font-medium"
               >
-                @mehr_kutubxonasi
+                @kitobqand
               </a>
             </div>
           </div>

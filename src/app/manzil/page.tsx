@@ -8,14 +8,12 @@ import logo from "../../images/kitob_qand_logo.svg";
 
 const Manzil: React.FC = () => {
   const { isDarkMode } = useMyStore();
-  const telegramUrl = "https://t.me/mehr_kutubxonasi/1559";
+  const telegramUrl = "https://t.me/kitobqand";
 
   return (
     <div
       className={`flex items-center justify-center h-[90vh] px-4 sm:px-0 transition-colors duration-300 container mx-auto ${
-        isDarkMode
-          ? "bg-[#1E1E1E] text-[#EDEDED]"
-          : "bg-[#fff] text-[#5B2C25]"
+        isDarkMode ? "bg-[#1E1E1E] text-[#EDEDED]" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div
@@ -34,7 +32,9 @@ const Manzil: React.FC = () => {
               height={40}
               className={isDarkMode ? "invert brightness-0" : ""}
             />
-            <h3 className="ml-3 text-lg font-semibold">Mehr kutubxonasi</h3>
+            <h3 className="ml-3 text-lg font-semibold">
+              KitobQand kutubxonasi
+            </h3>
           </div>
           <FaTelegramPlane className="text-blue-500 text-2xl" />
         </div>
@@ -56,7 +56,7 @@ const Manzil: React.FC = () => {
             rel="noopener noreferrer"
             className="text-blue-500"
           >
-            t.me/mehr_kutubxonasi/1559
+            https://t.me/kitobqand
           </a>
           <span className="mt-2 sm:mt-0">72.4K 👁</span>
         </div>

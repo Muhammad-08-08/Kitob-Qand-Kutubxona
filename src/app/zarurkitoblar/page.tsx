@@ -14,20 +14,29 @@ const ZarurKitoblar: React.FC = () => {
   const { isDarkMode } = useMyStore();
   const [zarurkitoblar, setZarurkitoblar] = useState<ZarurKitob[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    axios.get("https://library.softly.uz/api/app/stats").then((response) => {
-      const oddiyArray = Array.isArray(response.data.few_books[0])
-        ? response.data.few_books.flat()
-        : response.data.few_books;
-
-      setZarurkitoblar(oddiyArray);
-    });
+    setLoading(true);
+    axios
+      .get("https://library.softly.uz/api/app/stats")
+      .then((response) => {
+        const oddiyArray = Array.isArray(response.data.few_books[0])
+          ? response.data.few_books.flat()
+          : response.data.few_books;
+        setZarurkitoblar(oddiyArray);
+      })
+      .catch((error) => {
+        console.error("Zarur kitoblarni yuklashda xato:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  const search = zarurkitoblar.filter((item) => {
-    return item.name.toLowerCase().includes(searchValue.toLowerCase());
-  });
+  const search = zarurkitoblar.filter((item) =>
+    item.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   return (
     <div
@@ -41,9 +50,7 @@ const ZarurKitoblar: React.FC = () => {
           <input
             type="text"
             value={searchValue}
-            onChange={(e) => {
-              setSearchValue(e.currentTarget.value);
-            }}
+            onChange={(e) => setSearchValue(e.currentTarget.value)}
             placeholder="Kitob qidirish..."
             className={`w-full px-4 py-2 rounded text-sm sm:text-base border transition-all duration-300 focus:ring-2 ${
               isDarkMode
@@ -54,26 +61,38 @@ const ZarurKitoblar: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {search.map((item, index) => (
-          <div
-            key={index}
-            className={`p-3 md:p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-              isDarkMode
-                ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
-                : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
-            }`}
-          >
-            <p className="font-bold text-sm md:text-lg mb-2">
-              {index + 1}. {item.name}
-            </p>
-            <div className="flex flex-wrap justify-between text-xs md:text-sm">
-              <span>📖 Umumiy: {item.total} ta</span>
-              <span>🔒 Band: {item.busies} ta</span>
+      {loading ? (
+        <div className="flex justify-center items-center py-10">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
+        </div>
+      ) : search.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {search.map((item, index) => (
+            <div
+              key={index}
+              className={`p-3 md:p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+                isDarkMode
+                  ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
+                  : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
+              }`}
+            >
+              <p className="font-bold text-sm md:text-lg mb-2">
+                {index + 1}. {item.name}
+              </p>
+              <div className="flex flex-wrap justify-between text-xs md:text-sm">
+                <span>📖 Umumiy: {item.total} ta</span>
+                <span>🔒 Band: {item.busies} ta</span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center py-10">
+          <p className="text-lg font-semibold text-gray-500">
+            Ma'lumot topilmadi
+          </p>
+        </div>
+      )}
     </div>
   );
 };
