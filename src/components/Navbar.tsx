@@ -1,24 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import useMyStore from "../store/my-store";
+import { useState } from "react";
+import useMyStore from "@/store/my-store";
 import { FiMoon, FiSun, FiX } from "react-icons/fi";
 import Link from "next/link";
-import logoImage from "../images/kitob_qand_logo.svg";
 import Image from "next/image";
+import logoImage from "../images/kitob_qand_logo.svg";
 
 const Navbar: React.FC = () => {
-  const { isDarkMode, toggleDarkMode, initDarkMode } = useMyStore();
+  const { isDarkMode, toggleDarkMode } = useMyStore();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    initDarkMode();
-  }, [isDarkMode, initDarkMode]);
 
   return (
     <header className="container mx-auto w-full transition-colors duration-300 relative z-50 bg-[#fff] text-[#5B2C25] dark:bg-[#1E1E1E] dark:text-[#EDEDED]">
@@ -44,12 +35,6 @@ const Navbar: React.FC = () => {
             Manzil
           </Link>
           <Link
-            href="/hissaqoshish"
-            className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
-          >
-            {"Hissa qo'shish"}
-          </Link>
-          <Link
             href="/zarurkitoblar"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
           >
@@ -61,12 +46,9 @@ const Navbar: React.FC = () => {
           >
             Statistika
           </Link>
-          <div
-            onClick={toggleDarkMode}
-            className="flex gap-2 items-center cursor-pointer"
-          >
+          <button onClick={toggleDarkMode} className="cursor-pointer">
             {isDarkMode ? <FiMoon size={34} /> : <FiSun size={34} />}
-          </div>
+          </button>
         </div>
 
         <button
@@ -101,13 +83,6 @@ const Navbar: React.FC = () => {
                 Manzil
               </Link>
               <Link
-                href="/hissaqoshish"
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
-              >
-                {"Hissa qo'shish"}
-              </Link>
-              <Link
                 href="/zarurkitoblar"
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
@@ -122,7 +97,7 @@ const Navbar: React.FC = () => {
                 Statistika
               </Link>
             </nav>
-            <div
+            <button
               onClick={toggleDarkMode}
               className="flex gap-2 items-center cursor-pointer"
             >
@@ -130,7 +105,7 @@ const Navbar: React.FC = () => {
               <span className="text-lg">
                 {isDarkMode ? "Tungi rejim" : "Kunduzgi rejim"}
               </span>
-            </div>
+            </button>
           </div>
         </div>
       )}

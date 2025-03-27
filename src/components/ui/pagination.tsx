@@ -33,7 +33,9 @@ export const Pagination: React.FC<PaginationProps> = ({
       const end = Math.min(totalPages - 1, page + 1);
 
       for (let i = start; i <= end; i++) {
-        pages.push(i);
+        if (i !== 1 && i !== totalPages) {
+          pages.push(i);
+        }
       }
 
       if (page < totalPages - 2) {
@@ -51,7 +53,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         variant="outline"
         className={cn(
-          "px-3 py-2",
+          "px-[7px] py-0 text-sm md:px-3 md:py-2",
           page === 1 && "opacity-50 cursor-not-allowed"
         )}
         onClick={() => onPageChange(page - 1)}
@@ -69,7 +71,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           <Button
             key={p}
             variant={p === page ? "default" : "outline"}
-            className="px-3 py-2"
+            className="px-[7px] py-0 text-sm md:px-3 md:py-2"
             onClick={() => onPageChange(Number(p))}
           >
             {p}
@@ -80,7 +82,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Button
         variant="outline"
         className={cn(
-          "px-3 py-2",
+          "px-[7px] py-0 text-sm md:px-3 md:py-2",
           page === totalPages && "opacity-50 cursor-not-allowed"
         )}
         onClick={() => onPageChange(page + 1)}

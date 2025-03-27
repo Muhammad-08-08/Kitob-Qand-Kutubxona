@@ -54,11 +54,6 @@ export default function AdditionalStats({ totalStats }: TotalStatsType) {
               value: totalStats.reading_books_count,
               emoji: "⏳",
             },
-            {
-              label: "Kunlik O'rtacha",
-              value: totalStats.reading_books_count,
-              emoji: "📊",
-            },
           ].map((stat) => (
             <div
               key={stat.label}

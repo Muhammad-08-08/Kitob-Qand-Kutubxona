@@ -78,10 +78,15 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
-      <DrawerContent className="max-h-[95vh] max-w-3xl w-full mx-auto px-6 rounded-t-2xl shadow-lg ">
+      <DrawerContent className="w-full h-full mx-auto px-6 rounded-t-2xl shadow-lg ">
         <DrawerHeader className="mb-0 p-0">
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={onClose}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="cursor-pointer"
+            >
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <DrawerTitle>Kitob tafsilotlari</DrawerTitle>
@@ -97,14 +102,24 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
           </div>
         ) : (
           <div className="flex flex-col md:flex-row gap-6 py-4 overflow-y-auto">
-            <div className="w-full h-[50vh] md:w-1/3 flex justify-center">
-              <Image
-                src={productPage.image}
-                alt={productPage.name}
-                width={240}
-                height={340}
-                className="rounded-lg shadow-md"
-              />
+            <div className="w-full h-[50vh] md:w-1/3 md:h-[65vh] flex justify-center">
+              {productPage.image ? (
+                <Image
+                  src={productPage.image}
+                  alt={productPage.name}
+                  width={340}
+                  height={440}
+                  className="rounded-lg shadow-md"
+                />
+              ) : (
+                <Image
+                  src="/fallback-image.jpg"
+                  alt="No image available"
+                  width={340}
+                  height={440}
+                  className="rounded-lg shadow-md"
+                />
+              )}
             </div>
             <div className="flex-1 space-y-3">
               <h2 className="text-2xl font-bold">{productPage.name}</h2>
@@ -121,7 +136,7 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
               {qaytishi && (
                 <div className="mt-4">
                   <h4 className="font-semibold">📅 Bo‘sh muddatlar:</h4>
-                  <div className="space-y-2 mt-2">
+                  <div className="space-y-2 mt-2 md:w-[35%]">
                     {Object.entries(qaytishi).map(([date, count]) => (
                       <div
                         key={date}
