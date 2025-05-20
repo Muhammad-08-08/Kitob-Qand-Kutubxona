@@ -3,23 +3,22 @@
 import Image from "next/image";
 import { CardPageType } from "./Type.User";
 import useMyStore from "@/store/my-store";
-import { Skeleton } from "./ui/skeleton";
 
 const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
   const isDarkMode = useMyStore((state) => state.isDarkMode);
 
   if (isLoading) {
     return (
-      <div className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md transition-all duration-300 ${
-        isDarkMode
-          ? "bg-[#1E1E1E] border-gray-800"
-          : "border-[#A06A5A] bg-[#FDF7F5]"
-      }`}>
-        <Skeleton className="w-full h-[150px] sm:h-[200px] rounded-md" />
+      <div
+        className={`w-full sm:max-w-[250px] p-3 rounded-lg border border-transparent shadow-sm animate-[pulse_2s_ease-in-out_infinite] ${
+          isDarkMode ? "bg-[#1E1E1E]" : "bg-[#FDF7F5]"
+        }`}
+      >
+        <div className="w-full h-[150px] sm:h-[200px] bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-md" />
         <div className="mt-3 space-y-2">
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-          <Skeleton className="h-8 w-full mt-4" />
+          <div className="h-6 w-3/4 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded" />
+          <div className="h-4 w-1/2 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded" />
+          <div className="h-8 w-full mt-4 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-md" />
         </div>
       </div>
     );
@@ -28,11 +27,13 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
   const allBusy = item.stocks.every((stock) => stock.busy);
 
   return (
-    <div className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md transition-all duration-300 hover:shadow-lg ${
-      isDarkMode
-        ? "bg-[#1E1E1E] text-[#FDF7F5] border-gray-800 hover:border-gray-700"
-        : "border-[#A06A5A] bg-[#FDF7F5] text-[#5B2C25] hover:bg-[#f8efec]"
-    }`}>
+    <div
+      className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md transition-all duration-300 hover:shadow-lg ${
+        isDarkMode
+          ? "bg-[#1E1E1E] text-[#FDF7F5] border-gray-800 hover:border-gray-700"
+          : "border-[#A06A5A] bg-[#FDF7F5] text-[#5B2C25] hover:bg-[#f8efec]"
+      }`}
+    >
       <div className="w-full h-[150px] sm:h-[200px] flex justify-center items-center overflow-hidden bg-white rounded-md">
         <Image
           src={item.image || "/placeholder-book.jpg"}
@@ -44,26 +45,32 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
       </div>
 
       <div className="mt-3 flex flex-col gap-2">
-        <h3 className={`text-base sm:text-lg font-bold truncate md:h-8 ${
-          isDarkMode ? "text-[#FDF7F5]" : "text-[#5B2C25]"
-        }`}>
+        <h3
+          className={`text-base sm:text-lg font-bold truncate md:h-8 ${
+            isDarkMode ? "text-[#FDF7F5]" : "text-[#5B2C25]"
+          }`}
+        >
           {item.name}
         </h3>
-        <p className={`text-xs truncate sm:text-sm md:h-8 md:mb-2 ${
-          isDarkMode ? "text-gray-300" : "text-gray-700"
-        }`}>
+        <p
+          className={`text-xs truncate sm:text-sm md:h-8 md:mb-2 ${
+            isDarkMode ? "text-gray-300" : "text-gray-700"
+          }`}
+        >
           {item.author?.name}
         </p>
 
-        <button className={`px-6 sm:px-10 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 ${
-          isDarkMode
-            ? allBusy
-              ? "bg-red-900/50 text-red-100"
-              : "bg-green-900/50 text-green-100"
-            : allBusy
+        <button
+          className={`px-6 sm:px-10 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 ${
+            isDarkMode
+              ? allBusy
+                ? "bg-red-900/50 text-red-100"
+                : "bg-green-900/50 text-green-100"
+              : allBusy
               ? "bg-[#773000] text-white"
               : "bg-[#f1c1a0] hover:bg-[#e9b191]"
-        }`}>
+          }`}
+        >
           {allBusy ? "Band" : "Bo'sh"}
         </button>
       </div>
