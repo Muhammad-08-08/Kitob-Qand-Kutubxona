@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   transpilePackages: ["recharts"],
-  experimental: { optimizeCss: true },
 };
 
 export default nextConfig;
