@@ -1,5 +1,6 @@
 export type CardPageType = {
   item: Kards;
+  isLoading?: boolean;
 };
 
 export type Kards = {
