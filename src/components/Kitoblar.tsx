@@ -71,7 +71,18 @@ const Kitoblar: React.FC = () => {
 
   const renderSkeletons = () =>
     Array.from({ length: 8 }).map((_, index) => (
-      <CardPage key={`skeleton-${index}`} item={{} as any} isLoading />
+      <CardPage
+        key={`skeleton-${index}`}
+        item={{
+          id: 0,
+          name: "",
+          image: "",
+          sale_price: 0,
+          author: { name: "" },
+          stocks: [],
+        }}
+        isLoading
+      />
     ));
 
   return (
