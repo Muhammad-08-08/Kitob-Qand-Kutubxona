@@ -3,22 +3,21 @@
 import Image from "next/image";
 import { CardPageType } from "./Type.User";
 import useMyStore from "@/store/my-store";
+import { Skeleton } from "./ui/skeleton";
 
 const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
   const isDarkMode = useMyStore((state) => state.isDarkMode);
 
   if (isLoading) {
     return (
-      <div
-        className={`w-full sm:max-w-[250px] p-3 rounded-lg border border-transparent shadow-sm animate-[pulse_2s_ease-in-out_infinite] ${
-          isDarkMode ? "bg-[#1E1E1E]" : "bg-[#FDF7F5]"
-        }`}
-      >
-        <div className="w-full h-[150px] sm:h-[200px] bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-md" />
+      <div className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md ${
+        isDarkMode ? "bg-[#1E1E1E] border-gray-800" : "bg-[#FDF7F5] border-[#A06A5A]"
+      }`}>
+        <Skeleton className="w-full h-[150px] sm:h-[200px] rounded-md" />
         <div className="mt-3 space-y-2">
-          <div className="h-6 w-3/4 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded" />
-          <div className="h-4 w-1/2 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded" />
-          <div className="h-8 w-full mt-4 bg-gradient-to-br from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-md" />
+          <Skeleton className="h-6 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+          <Skeleton className="h-8 w-full mt-4" />
         </div>
       </div>
     );
@@ -38,9 +37,10 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
         <Image
           src={item.image || "/placeholder-book.jpg"}
           alt={item.name || "Book cover"}
-          width={0}
-          height={0}
+          width={200}
+          height={300}
           className="w-full h-auto object-contain transition-transform duration-300 hover:scale-105"
+          loading="lazy"
         />
       </div>
 
@@ -70,6 +70,7 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
               ? "bg-[#773000] text-white"
               : "bg-[#f1c1a0] hover:bg-[#e9b191]"
           }`}
+          aria-label={allBusy ? "Kitob band" : "Kitob bo'sh"}
         >
           {allBusy ? "Band" : "Bo'sh"}
         </button>

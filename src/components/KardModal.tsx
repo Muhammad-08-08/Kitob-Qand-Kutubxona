@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -46,39 +45,46 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
   const [qaytishi, setQaytishi] = useState<Record<string, number> | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
+  const fetchBookDetails = async () => {
     if (!id || !isOpen) return;
 
     setLoading(true);
-    axios
-      .get(`https://library.softly.uz/api/app/books/${id}`)
-      .then((response) => setProductPage(response.data))
-      .catch(() => console.error("Xatolik yuzaga keldi"));
+    try {
+      const [bookResponse, statusResponse] = await Promise.all([
+        fetch(`https://library.softly.uz/api/app/books/${id}`),
+        fetch(`https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`)
+      ]);
 
-    axios
-      .get(
-        `https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`
-      )
-      .then((res) => {
-        const groupedDates = res.data.reduce(
-          (acc: Record<string, number>, item: Status) => {
-            const date = new Date(item.returningDate).toLocaleDateString("ru");
-            acc[date] = (acc[date] || 0) + 1;
-            return acc;
-          },
-          {}
-        );
-        setQaytishi(Object.keys(groupedDates).length > 0 ? groupedDates : null);
-      })
-      .catch(() => console.error("Xatolik yuzaga keldi"))
-      .finally(() => setLoading(false));
-  }, [id, isOpen]);
+      const bookData = await bookResponse.json();
+      const statusData = await statusResponse.json();
+
+      setProductPage(bookData);
+
+      const groupedDates = statusData.reduce(
+        (acc: Record<string, number>, item: Status) => {
+          const date = new Date(item.returningDate).toLocaleDateString("ru");
+          acc[date] = (acc[date] || 0) + 1;
+          return acc;
+        },
+        {}
+      );
+      setQaytishi(Object.keys(groupedDates).length > 0 ? groupedDates : null);
+    } catch (error) {
+      console.error("Ma'lumotlarni yuklashda xatolik:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useState(() => {
+    fetchBookDetails();
+  });
 
   const boshKitoblar = productPage?.stocks.filter((i) => !i.busy).length || 0;
 
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
-      <DrawerContent className="w-full h-full mx-auto px-6 rounded-t-2xl shadow-lg ">
+      <DrawerContent className="w-full h-full mx-auto px-6 rounded-t-2xl shadow-lg">
         <DrawerHeader className="mb-0 p-0">
           <div className="flex items-center gap-3">
             <Button
@@ -86,6 +92,7 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
               size="icon"
               onClick={onClose}
               className="cursor-pointer"
+              aria-label="Yopish"
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
@@ -103,23 +110,14 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
         ) : (
           <div className="flex flex-col md:flex-row gap-6 py-4 overflow-y-auto">
             <div className="w-full h-[50vh] md:w-1/3 md:h-[65vh] flex justify-center">
-              {productPage.image ? (
-                <Image
-                  src={productPage.image}
-                  alt={productPage.name}
-                  width={340}
-                  height={440}
-                  className="rounded-lg shadow-md"
-                />
-              ) : (
-                <Image
-                  src="/fallback-image.jpg"
-                  alt="No image available"
-                  width={340}
-                  height={440}
-                  className="rounded-lg shadow-md"
-                />
-              )}
+              <Image
+                src={productPage.image || "/fallback-image.jpg"}
+                alt={productPage.name}
+                width={340}
+                height={440}
+                className="rounded-lg shadow-md"
+                priority
+              />
             </div>
             <div className="flex-1 space-y-3">
               <h2 className="text-2xl font-bold">{productPage.name}</h2>
@@ -127,15 +125,15 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
                 Muallif: {productPage.author.name}
               </h4>
               <p className="text-gray-600 dark:text-gray-400">
-                Kutubxonamizdan vaqtincha olib o‘qishingiz mumkin.
+                Kutubxonamizdan vaqtincha olib o'qishingiz mumkin.
               </p>
               <div className="mt-4 space-y-2">
                 <p>📚 Umumiy kitoblar: {productPage.stocks.length}</p>
-                <p>📖 Bo‘sh kitoblar: {boshKitoblar}</p>
+                <p>📖 Bo'sh kitoblar: {boshKitoblar}</p>
               </div>
               {qaytishi && (
                 <div className="mt-4">
-                  <h4 className="font-semibold">📅 Bo‘sh muddatlar:</h4>
+                  <h4 className="font-semibold">📅 Bo'sh muddatlar:</h4>
                   <div className="space-y-2 mt-2 md:w-[35%]">
                     {Object.entries(qaytishi).map(([date, count]) => (
                       <div

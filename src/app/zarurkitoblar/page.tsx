@@ -1,39 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import useMyStore from "@/store/my-store";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const ZarurKitoblar: React.FC = () => {
-  type ZarurKitob = {
-    busies: number;
-    name: string;
-    total: number;
+type ZarurKitob = {
+  busies: number;
+  name: string;
+  total: number;
+};
+
+export default async function ZarurKitoblar() {
+  const { isDarkMode } = useMyStore();
+  const [searchValue, setSearchValue] = useState("");
+
+  const fetchData = async () => {
+    const res = await fetch("https://library.softly.uz/api/app/stats", { next: { revalidate: 3600 } });
+    if (!res.ok) throw new Error("Failed to fetch data");
+    const data = await res.json();
+    return Array.isArray(data.few_books[0]) ? data.few_books.flat() : data.few_books;
   };
 
-  const { isDarkMode } = useMyStore();
-  const [zarurkitoblar, setZarurkitoblar] = useState<ZarurKitob[]>([]);
-  const [searchValue, setSearchValue] = useState("");
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("https://library.softly.uz/api/app/stats")
-      .then((response) => {
-        const oddiyArray = Array.isArray(response.data.few_books[0])
-          ? response.data.few_books.flat()
-          : response.data.few_books;
-        setZarurkitoblar(oddiyArray);
-      })
-      .catch((error) => {
-        console.error("Zarur kitoblarni yuklashda xato:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
+  const zarurkitoblar = await fetchData();
   const search = zarurkitoblar.filter((item) =>
     item.name.toLowerCase().includes(searchValue.toLowerCase())
   );
@@ -45,10 +33,10 @@ const ZarurKitoblar: React.FC = () => {
       }`}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 items-center">
-        <h2 className="text-xl md:text-2xl font-bold">📚 Zarur Kitoblar</h2>
+        <h1 className="text-xl md:text-2xl font-bold">📚 Zarur Kitoblar</h1>
         <div className="w-full sm:w-auto">
           <input
-            type="text"
+            type="search"
             value={searchValue}
             onChange={(e) => setSearchValue(e.currentTarget.value)}
             placeholder="Kitob qidirish..."
@@ -61,32 +49,28 @@ const ZarurKitoblar: React.FC = () => {
         </div>
       </div>
 
-      {loading ? (
-        <div className="flex justify-center items-center py-10">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
-        </div>
-      ) : search.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {search.map((item, index) => (
-            <div
-              key={index}
-              className={`p-3 md:p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                isDarkMode
-                  ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
-                  : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
-              }`}
-            >
-              <p className="font-bold text-sm md:text-lg mb-2">
-                {index + 1}. {item.name}
-              </p>
-              <div className="flex flex-wrap justify-between text-xs md:text-sm">
-                <span>📖 Umumiy: {item.total} ta</span>
-                <span>🔒 Band: {item.busies} ta</span>
-              </div>
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {search.map((item, index) => (
+          <div
+            key={index}
+            className={`p-3 md:p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+              isDarkMode
+                ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
+                : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
+            }`}
+          >
+            <p className="font-bold text-sm md:text-lg mb-2">
+              {index + 1}. {item.name}
+            </p>
+            <div className="flex flex-wrap justify-between text-xs md:text-sm">
+              <span>📖 Umumiy: {item.total} ta</span>
+              <span>🔒 Band: {item.busies} ta</span>
             </div>
-          ))}
-        </div>
-      ) : (
+          </div>
+        ))}
+      </div>
+
+      {search.length === 0 && (
         <div className="flex justify-center items-center py-10">
           <p className="text-lg font-semibold text-gray-500">
             {"Ma'lumot topilmadi"}
@@ -95,6 +79,4 @@ const ZarurKitoblar: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default ZarurKitoblar;
+}
