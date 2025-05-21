@@ -10,9 +10,13 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
 
   if (isLoading) {
     return (
-      <div className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md ${
-        isDarkMode ? "bg-[#1E1E1E] border-gray-800" : "bg-[#FDF7F5] border-[#A06A5A]"
-      }`}>
+      <div
+        className={`w-full sm:max-w-[250px] p-3 rounded-lg border shadow-md ${
+          isDarkMode
+            ? "bg-[#1E1E1E] border-gray-800"
+            : "bg-[#FDF7F5] border-[#A06A5A]"
+        }`}
+      >
         <Skeleton className="w-full h-[150px] sm:h-[200px] rounded-md" />
         <div className="mt-3 space-y-2">
           <Skeleton className="h-6 w-3/4" />
@@ -35,7 +39,11 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
     >
       <div className="w-full h-[150px] sm:h-[200px] flex justify-center items-center overflow-hidden bg-white rounded-md">
         <Image
-          src={item.image || "/placeholder-book.jpg"}
+          src={
+            item.image && item.image !== ""
+              ? item.image
+              : "https://telegra.ph/file/ee79afc5d58364c4ff64f.jpg"
+          }
           alt={item.name || "Book cover"}
           width={200}
           height={300}

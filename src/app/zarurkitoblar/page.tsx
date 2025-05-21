@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMyStore from "@/store/my-store";
-import { Skeleton } from "@/components/ui/skeleton";
 
 type ZarurKitob = {
   busies: number;
@@ -10,19 +9,36 @@ type ZarurKitob = {
   total: number;
 };
 
-export default async function ZarurKitoblar() {
+export default function ZarurKitoblar() {
   const { isDarkMode } = useMyStore();
   const [searchValue, setSearchValue] = useState("");
+  const [zarurKitoblar, setZarurKitoblar] = useState<ZarurKitob[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
-    const res = await fetch("https://library.softly.uz/api/app/stats", { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error("Failed to fetch data");
-    const data = await res.json();
-    return Array.isArray(data.few_books[0]) ? data.few_books.flat() : data.few_books;
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("https://library.softly.uz/api/app/stats", {
+          next: { revalidate: 3600 },
+        });
+        if (!res.ok) throw new Error("Ma'lumotlarni olishda xatolik");
+        const data = await res.json();
+        const books = Array.isArray(data.few_books[0])
+          ? data.few_books.flat()
+          : data.few_books;
+        setZarurKitoblar(books);
+      } catch (err: any) {
+        setError(err.message || "Xatolik yuz berdi");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const zarurkitoblar = await fetchData();
-  const search = zarurkitoblar.filter((item) =>
+    fetchData();
+  }, []);
+
+  const search = zarurKitoblar.filter((item) =>
     item.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
@@ -49,33 +65,41 @@ export default async function ZarurKitoblar() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {search.map((item, index) => (
-          <div
-            key={index}
-            className={`p-3 md:p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-              isDarkMode
-                ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
-                : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
-            }`}
-          >
-            <p className="font-bold text-sm md:text-lg mb-2">
-              {index + 1}. {item.name}
-            </p>
-            <div className="flex flex-wrap justify-between text-xs md:text-sm">
-              <span>📖 Umumiy: {item.total} ta</span>
-              <span>🔒 Band: {item.busies} ta</span>
-            </div>
+      {loading ? (
+        <p className="text-center py-10">Yuklanmoqda...</p>
+      ) : error ? (
+        <p className="text-center py-10 text-red-500">{error}</p>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {search.map((item, index) => (
+              <div
+                key={index}
+                className={`p-3 md:p-4 rounded-xl shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+                  isDarkMode
+                    ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
+                    : "bg-[#f0e7e4] text-[#5B2C25] hover:bg-[#ebddd9]"
+                }`}
+              >
+                <p className="font-bold text-sm md:text-lg mb-2">
+                  {index + 1}. {item.name}
+                </p>
+                <div className="flex flex-wrap justify-between text-xs md:text-sm">
+                  <span>📖 Umumiy: {item.total} ta</span>
+                  <span>🔒 Band: {item.busies} ta</span>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {search.length === 0 && (
-        <div className="flex justify-center items-center py-10">
-          <p className="text-lg font-semibold text-gray-500">
-            {"Ma'lumot topilmadi"}
-          </p>
-        </div>
+          {search.length === 0 && (
+            <div className="flex justify-center items-center py-10">
+              <p className="text-lg font-semibold text-gray-500">
+                {"Ma'lumot topilmadi"}
+              </p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

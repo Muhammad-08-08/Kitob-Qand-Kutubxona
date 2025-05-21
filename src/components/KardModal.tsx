@@ -52,7 +52,9 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
     try {
       const [bookResponse, statusResponse] = await Promise.all([
         fetch(`https://library.softly.uz/api/app/books/${id}`),
-        fetch(`https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`)
+        fetch(
+          `https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`
+        ),
       ]);
 
       const bookData = await bookResponse.json();
@@ -125,15 +127,15 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
                 Muallif: {productPage.author.name}
               </h4>
               <p className="text-gray-600 dark:text-gray-400">
-                Kutubxonamizdan vaqtincha olib o'qishingiz mumkin.
+                {" Kutubxonamizdan vaqtincha olib o'qishingiz mumkin."}
               </p>
               <div className="mt-4 space-y-2">
                 <p>📚 Umumiy kitoblar: {productPage.stocks.length}</p>
-                <p>📖 Bo'sh kitoblar: {boshKitoblar}</p>
+                <p>{"📖 Bo'sh kitoblar:"} {boshKitoblar}</p>
               </div>
               {qaytishi && (
                 <div className="mt-4">
-                  <h4 className="font-semibold">📅 Bo'sh muddatlar:</h4>
+                  <h4 className="font-semibold">{"📅 Bo'sh muddatlar:"}</h4>
                   <div className="space-y-2 mt-2 md:w-[35%]">
                     {Object.entries(qaytishi).map(([date, count]) => (
                       <div
