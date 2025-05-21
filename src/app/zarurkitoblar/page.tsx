@@ -28,8 +28,12 @@ export default function ZarurKitoblar() {
           ? data.few_books.flat()
           : data.few_books;
         setZarurKitoblar(books);
-      } catch (err: any) {
-        setError(err.message || "Xatolik yuz berdi");
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Noma'lum xatolik yuz berdi");
+        }
       } finally {
         setLoading(false);
       }
