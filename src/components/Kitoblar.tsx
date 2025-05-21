@@ -1,62 +1,37 @@
 "use client";
 
 import useMyStore from "@/store/my-store";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CardPage from "./CardPage";
 import KardDrawer from "./KardModal";
 import { TopMenuType } from "./Type.User";
 import { Pagination } from "./ui/pagination";
 
-const Kitoblar: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+interface KitoblarProps {
+  initialData: TopMenuType;
+}
+
+const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
   const { isDarkMode } = useMyStore();
   const [inputSearchValue, setInputSearchValue] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [books, setBooks] = useState<TopMenuType | null>(null);
+  const [books, setBooks] = useState<TopMenuType>(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState<number | undefined>();
   const [busy, setBusy] = useState<boolean | null>(null);
 
-  // Debounced search input
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      setSearchQuery(inputSearchValue);
-    }, 500);
-    return () => clearTimeout(delay);
-  }, [inputSearchValue]);
+  const handleSearch = async () => {
+    const res = await fetch(`https://library.softly.uz/api/app/books?size=20&page=${currentPage}&q=${inputSearchValue}${busy !== null ? `&busy=${busy}` : ''}`);
+    const data = await res.json();
+    setBooks(data);
+  };
 
-  // Fetch books from API
-  useEffect(() => {
-    const fetchBooks = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(
-          "https://library.softly.uz/api/app/books",
-          {
-            params: {
-              size: 20,
-              page: currentPage,
-              order: "DESC",
-              q: searchQuery,
-              busy,
-            },
-          }
-        );
-        setBooks(response.data);
-      } catch (error) {
-        console.error("Kitoblarni yuklashda xato:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBooks();
-  }, [currentPage, searchQuery, busy]);
-
-  const handleFilter = (filter: boolean | null) => {
+  const handleFilter = async (filter: boolean | null) => {
     setBusy(filter);
     setCurrentPage(1);
+    const res = await fetch(`https://library.softly.uz/api/app/books?size=20&page=1&q=${inputSearchValue}${filter !== null ? `&busy=${filter}` : ''}`);
+    const data = await res.json();
+    setBooks(data);
   };
 
   const openModal = (id: number) => {
@@ -68,22 +43,6 @@ const Kitoblar: React.FC = () => {
     setModalOpen(false);
     setSelectedBookId(undefined);
   };
-
-  const renderSkeletons = () =>
-    Array.from({ length: 8 }).map((_, index) => (
-      <CardPage
-        key={`skeleton-${index}`}
-        item={{
-          id: 0,
-          name: "",
-          image: "",
-          sale_price: 0,
-          author: { name: "" },
-          stocks: [],
-        }}
-        isLoading
-      />
-    ));
 
   return (
     <div
@@ -119,36 +78,37 @@ const Kitoblar: React.FC = () => {
             ))}
           </div>
 
-          <input
-            type="text"
-            value={inputSearchValue}
-            onChange={(e) => setInputSearchValue(e.currentTarget.value)}
-            placeholder="Kitob qidirish..."
-            className={`w-full px-4 py-2 rounded-md border transition-all duration-300 focus:ring-2 ${
-              isDarkMode
-                ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-[#EDEDED]"
-                : "bg-white text-gray-800 border-gray-300 focus:ring-[#5B2C25]"
-            }`}
-          />
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}>
+            <input
+              type="search"
+              value={inputSearchValue}
+              onChange={(e) => setInputSearchValue(e.currentTarget.value)}
+              placeholder="Kitob qidirish..."
+              className={`w-full px-4 py-2 rounded-md border transition-all duration-300 focus:ring-2 ${
+                isDarkMode
+                  ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-[#EDEDED]"
+                  : "bg-white text-gray-800 border-gray-300 focus:ring-[#5B2C25]"
+              }`}
+            />
+          </form>
         </div>
 
-        {/* Kitoblar grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {loading
-            ? renderSkeletons()
-            : books?.items?.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => openModal(item.id)}
-                  className="cursor-pointer"
-                >
-                  <CardPage item={item} isLoading={false} />
-                </div>
-              ))}
+          {books?.items?.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => openModal(item.id)}
+              className="cursor-pointer"
+            >
+              <CardPage item={item} isLoading={false} />
+            </div>
+          ))}
         </div>
 
-        {/* No results */}
-        {!loading && books?.items?.length === 0 && (
+        {books?.items?.length === 0 && (
           <div className="flex flex-col items-center justify-center py-10">
             <p
               className={`text-lg font-semibold ${
@@ -160,17 +120,13 @@ const Kitoblar: React.FC = () => {
           </div>
         )}
 
-        {/* Pagination */}
-        {!loading && (
-          <Pagination
-            page={currentPage}
-            totalPages={Math.ceil((books?.totalCount || 0) / 20)}
-            onPageChange={setCurrentPage}
-          />
-        )}
+        <Pagination
+          page={currentPage}
+          totalPages={Math.ceil((books?.totalCount || 0) / 20)}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
-      {/* Modal */}
       {selectedBookId != null && (
         <KardDrawer
           id={selectedBookId}

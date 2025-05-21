@@ -1,59 +1,41 @@
 "use client";
 
-import axios from "axios";
-import useMyStore from "../store/my-store";
 import Image from "next/image";
+import useMyStore from "../store/my-store";
 import teacherIcon from "../images/man-teacher.png";
 import booksIcon from "../images/books.png";
 import checkIcon from "../images/check-mark.png";
 import bookIcon from "../images/open-book.png";
 import { StatisticsData } from "./Type.User";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-const Statistics: React.FC = () => {
-  const [statistics, setStatistics] = useState<StatisticsData>();
-  const [loading, setLoading] = useState(true);
+interface StatisticsProps {
+  initialData: StatisticsData;
+}
+
+const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
   const { isDarkMode } = useMyStore();
-
-  useEffect(() => {
-    axios
-      .get("https://library.softly.uz/api/app/stats")
-      .then((response) => setStatistics(response.data))
-      .catch(() => console.error("Xatolik yuz berdi"))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) {
-    return <div className="text-center py-10 text-lg">⏳ Yuklanmoqda...</div>;
-  }
-
-  if (!statistics) {
-    return (
-      <div className="text-center py-10 text-lg">❌ Statistika mavjud emas</div>
-    );
-  }
 
   const statItems = [
     {
       image: teacherIcon,
       label: "Kitobxonlar",
-      value: statistics.librarians_count,
+      value: initialData.librarians_count,
     },
     {
       image: bookIcon,
       label: "O'qilayotgan kitoblar",
-      value: statistics.reading_books_count,
+      value: initialData.reading_books_count,
     },
     {
       image: checkIcon,
       label: "O'qilgan kitoblar",
-      value: statistics.rents_count,
+      value: initialData.rents_count,
     },
     {
       image: booksIcon,
       label: "Barcha kitoblar",
-      value: statistics.books_count,
+      value: initialData.books_count,
     },
   ];
 
@@ -64,9 +46,9 @@ const Statistics: React.FC = () => {
       }`}
     >
       <div className="text-center">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
           📊 Kutubxona statistikasi
-        </h2>
+        </h1>
         <Link href="/statistika">
           <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A] transition-colors duration-200">
             {"➡️ To'liq ko'rish"}
@@ -88,14 +70,15 @@ const Statistics: React.FC = () => {
                 <Image
                   src={item.image}
                   alt={item.label}
-                  width={0}
-                  height={0}
-                  className="opacity-90 h-12 w-12 md:h-16 md:w-16"
+                  width={48}
+                  height={48}
+                  className="opacity-90"
+                  priority={index < 2}
                 />
               </div>
-              <h4 className="text-xl sm:text-2xl font-bold">
+              <h2 className="text-xl sm:text-2xl font-bold">
                 {item.value.toLocaleString("ru")}
-              </h4>
+              </h2>
               <p className="mt-1 text-base sm:text-lg font-bold">
                 {item.label}
               </p>
