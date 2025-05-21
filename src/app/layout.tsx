@@ -2,15 +2,19 @@ import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import logoImage from "../images/kitob_qand_logo.svg";
 
 export const metadata: Metadata = {
   title: "Kitob Qand - Bepul Kutubxona",
-  description: "Kitob Qand - Bepul kutubxona. Kutubxonaga kelib o'zingizga kerakli kitobni kelishilgan muddatga o'qib turish uchun olib ketishingiz mumkin.",
+  description:
+    "Kitob Qand - Bepul kutubxona. Kutubxonaga kelib o'zingizga kerakli kitobni kelishilgan muddatga o'qib turish uchun olib ketishingiz mumkin.",
   keywords: "kitob, kutubxona, bepul, o'qish, kitoblar",
   authors: [{ name: "Kitob Qand" }],
   openGraph: {
+    images: logoImage,
     title: "Kitob Qand - Bepul Kutubxona",
-    description: "Kitob Qand - Bepul kutubxona. Kutubxonaga kelib o'zingizga kerakli kitobni kelishilgan muddatga o'qib turish uchun olib ketishingiz mumkin.",
+    description:
+      "Kitob Qand - Bepul kutubxona. Kutubxonaga kelib o'zingizga kerakli kitobni kelishilgan muddatga o'qib turish uchun olib ketishingiz mumkin.",
     url: "https://kitobqand.uz",
     siteName: "Kitob Qand",
     locale: "uz_UZ",
@@ -35,9 +39,7 @@ export default function RootLayout({
     <html lang="uz" suppressHydrationWarning>
       <body className="antialiased xl:px-24.5">
         <Navbar />
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
