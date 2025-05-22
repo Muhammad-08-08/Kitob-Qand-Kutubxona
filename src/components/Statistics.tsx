@@ -56,7 +56,7 @@ const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
         </Link>
       </div>
 
-      <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 md:grid-cols-4">
         {statItems.map((item, index) => (
           <Link key={index} href="/statistika">
             <div
@@ -64,7 +64,7 @@ const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
                 isDarkMode
                   ? "bg-[#252525] text-[#FDF7F5]"
                   : "bg-[#F0EAE8] text-[#5B2C25]"
-              }  flex flex-col items-center justify-center h-[140px] sm:h-[180px]`}
+              }  flex flex-col items-center justify-center h-[140px] sm:h-[180px] sm:w-[280px]`}
             >
               <div className="mb-3 flex justify-center">
                 <Image

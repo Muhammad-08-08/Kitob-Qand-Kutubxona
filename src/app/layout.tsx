@@ -24,7 +24,11 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: "/favicon.ico",
+    icon: "http://localhost:3000/_next/static/media/kitob_qand_logo.1b39a42f.svg",
+    shortcut:
+      "http://localhost:3000/_next/static/media/kitob_qand_logo.1b39a42f.svg", // brauzer yorliqlarida ishlatilishi mumkin
+    apple:
+      "http://localhost:3000/_next/static/media/kitob_qand_logo.1b39a42f.svg", // Apple qurilmalari uchun
   },
 };
 
