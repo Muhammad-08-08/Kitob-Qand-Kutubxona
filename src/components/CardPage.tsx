@@ -53,20 +53,20 @@ const CardPage: React.FC<CardPageType> = ({ item, isLoading }) => {
       </div>
 
       <div className="mt-3 flex flex-col gap-2">
-        <h3
+        <h1
           className={`text-base sm:text-lg font-bold truncate md:h-8 ${
             isDarkMode ? "text-[#FDF7F5]" : "text-[#5B2C25]"
           }`}
         >
           {item.name}
-        </h3>
-        <p
+        </h1>
+        <h2
           className={`text-xs truncate sm:text-sm md:h-8 md:mb-2 ${
             isDarkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
           {item.author?.name}
-        </p>
+        </h2>
 
         <button
           className={`px-6 sm:px-10 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-300 ${
