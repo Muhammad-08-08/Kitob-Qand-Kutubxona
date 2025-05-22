@@ -19,19 +19,38 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState<number | undefined>();
   const [busy, setBusy] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
-    const res = await fetch(`https://library.softly.uz/api/app/books?size=20&page=${currentPage}&q=${inputSearchValue}${busy !== null ? `&busy=${busy}` : ''}`);
-    const data = await res.json();
-    setBooks(data);
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://library.softly.uz/api/app/books?size=20&page=${currentPage}&q=${inputSearchValue.trim()}${
+          busy !== null ? `&busy=${busy}` : ""
+        }`
+      );
+      const data = await res.json();
+      setBooks(data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFilter = async (filter: boolean | null) => {
     setBusy(filter);
     setCurrentPage(1);
-    const res = await fetch(`https://library.softly.uz/api/app/books?size=20&page=1&q=${inputSearchValue}${filter !== null ? `&busy=${filter}` : ''}`);
-    const data = await res.json();
-    setBooks(data);
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://library.softly.uz/api/app/books?size=20&page=1&q=${inputSearchValue.trim()}${
+          filter !== null ? `&busy=${filter}` : ""
+        }`
+      );
+      const data = await res.json();
+      setBooks(data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const openModal = (id: number) => {
@@ -78,10 +97,13 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
             ))}
           </div>
 
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch();
+            }}
+            className="flex items-center gap-2"
+          >
             <input
               type="search"
               value={inputSearchValue}
@@ -93,6 +115,39 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
                   : "bg-white text-gray-800 border-gray-300 focus:ring-[#5B2C25]"
               }`}
             />
+            <button
+              type="submit"
+              disabled={loading}
+              className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
+                isDarkMode
+                  ? "bg-[#5B2C25] text-white hover:bg-[#773000]"
+                  : "bg-[#5B2C25] text-white hover:bg-[#773000]"
+              } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            >
+              {loading ? (
+                <svg
+                  className="w-5 h-5 animate-spin mx-auto"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+              ) : (
+                "Qidirish"
+              )}
+            </button>
           </form>
         </div>
 
