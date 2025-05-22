@@ -122,10 +122,10 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
               />
             </div>
             <div className="flex-1 space-y-3">
-              <h2 className="text-2xl font-bold">{productPage.name}</h2>
-              <h4 className="text-lg font-medium">
+              <h1 className="text-2xl font-bold">{productPage.name}</h1>
+              <h2 className="text-lg font-medium">
                 Muallif: {productPage.author.name}
-              </h4>
+              </h2>
               <p className="text-gray-600 dark:text-gray-400">
                 {" Kutubxonamizdan vaqtincha olib o'qishingiz mumkin."}
               </p>
