@@ -5,7 +5,8 @@ import { useState } from "react";
 import CardPage from "./CardPage";
 import KardDrawer from "./KardModal";
 import { TopMenuType } from "./Type.User";
-import { Pagination } from "./ui/pagination";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 interface KitoblarProps {
   initialData: TopMenuType;
@@ -21,11 +22,11 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
   const [busy, setBusy] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = async () => {
+  const handleSearch = async (page = currentPage) => {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://library.softly.uz/api/app/books?size=20&page=${currentPage}&q=${inputSearchValue.trim()}${
+        `https://library.softly.uz/api/app/books?size=20&page=${page}&q=${inputSearchValue.trim()}${
           busy !== null ? `&busy=${busy}` : ""
         }`
       );
@@ -62,6 +63,10 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
     setModalOpen(false);
     setSelectedBookId(undefined);
   };
+
+  const totalItems = books.totalCount || 10;
+  const safeLimit = books.items;
+  const totalPages = Math.ceil(totalItems / safeLimit);
 
   return (
     <div
@@ -175,11 +180,19 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
           </div>
         )}
 
-        <Pagination
-          page={currentPage}
-          totalPages={Math.ceil((books?.totalCount || 0) / 20)}
-          onPageChange={setCurrentPage}
-        />
+        {/* <div>
+          <Link
+            href={`/categories/${data.categoryId}?page=${index_number}&limit=${limit}`}
+            key={index}
+          >
+            <Button
+              className="cursor-pointer"
+              variant={index_number === Number(page) ? "default" : "outline"}
+            >
+              {index_number}
+            </Button>
+          </Link>
+        </div> */}
       </div>
 
       {selectedBookId != null && (
