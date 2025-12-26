@@ -2,67 +2,39 @@
 
 import useMyStore from "@/store/my-store";
 import { useState } from "react";
+import { useBooks } from "../../hooks/useBooks";
 import CardPage from "./CardPage";
 import KardDrawer from "./KardModal";
+import CardSkeleton from "./library/CardSkeleton";
 import { TopMenuType } from "./Type.User";
-import Link from "next/link";
-import { Button } from "./ui/button";
 
-interface KitoblarProps {
-  initialData: TopMenuType;
-}
-
-const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
+const Kitoblar: React.FC<{ initialData: TopMenuType }> = ({ initialData }) => {
   const { isDarkMode } = useMyStore();
+
   const [inputSearchValue, setInputSearchValue] = useState("");
-  const [books, setBooks] = useState<TopMenuType>(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState<number | undefined>();
   const [busy, setBusy] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(false);
 
   const headers = {
     library: "16",
   };
 
-  const handleSearch = async (page = currentPage) => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://library.softly.uz/api/app/books?size=20&page=${page}&q=${inputSearchValue.trim()}${
-          busy !== null ? `&busy=${busy}` : ""
-        }`,
-        {
-          headers,
-        }
-      );
-      const data = await res.json();
-      setBooks(data);
-    } finally {
-      setLoading(false);
-    }
-  };
+  /** 🔹 React Query */
+  const { data, isLoading, isFetching } = useBooks({
+    page: currentPage,
+    q: inputSearchValue,
+    busy,
+    headers,
+  });
 
-  const handleFilter = async (filter: boolean | null) => {
-    setBusy(filter);
-    setCurrentPage(1);
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `https://library.softly.uz/api/app/books?size=20&page=1&q=${inputSearchValue.trim()}${
-          filter !== null ? `&busy=${filter}` : ""
-        }`,
-        {
-          headers,
-        }
-      );
-      const data = await res.json();
-      setBooks(data);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const books: TopMenuType = data ?? initialData;
+
+  /** 🔹 Pagination hisoblari */
+  const totalItems = books?.totalCount ?? 0;
+  const limit = 20;
+  const totalPages = Math.ceil(totalItems / limit);
 
   const openModal = (id: number) => {
     setSelectedBookId(id);
@@ -73,10 +45,6 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
     setModalOpen(false);
     setSelectedBookId(undefined);
   };
-
-  const totalItems = books.totalCount || 10;
-  const safeLimit = books.items;
-  const totalPages = Math.ceil(totalItems / safeLimit);
 
   return (
     <div
@@ -89,6 +57,7 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
           📚 Kitoblar
         </h2>
 
+        {/* FILTER + SEARCH */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div className="flex flex-wrap gap-2">
             {[
@@ -105,7 +74,10 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
                     ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
-                onClick={() => handleFilter(filter.value)}
+                onClick={() => {
+                  setBusy(filter.value);
+                  setCurrentPage(1);
+                }}
               >
                 {filter.label}
               </button>
@@ -115,7 +87,7 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleSearch();
+              setCurrentPage(1);
             }}
             className="flex items-center gap-2"
           >
@@ -124,85 +96,71 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
               value={inputSearchValue}
               onChange={(e) => setInputSearchValue(e.currentTarget.value)}
               placeholder="Kitob qidirish..."
-              className={`w-full px-4 py-2 rounded-md border transition-all duration-300 focus:ring-2 ${
+              className={`w-full px-4 py-2 rounded-md border ${
                 isDarkMode
-                  ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-[#EDEDED]"
-                  : "bg-white text-gray-800 border-gray-300 focus:ring-[#5B2C25]"
+                  ? "bg-gray-800 text-gray-200 border-gray-700"
+                  : "bg-white text-gray-800 border-gray-300"
               }`}
             />
+
             <button
               type="submit"
-              disabled={loading}
-              className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
-                isDarkMode
-                  ? "bg-[#5B2C25] text-white hover:bg-[#773000]"
-                  : "bg-[#5B2C25] text-white hover:bg-[#773000]"
-              } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+              disabled={isFetching}
+              className={`px-4 py-2 rounded-md font-medium ${
+                isFetching ? "opacity-50" : ""
+              } bg-[#5B2C25] text-white`}
             >
-              {loading ? (
-                <svg
-                  className="w-5 h-5 animate-spin mx-auto"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                  ></path>
-                </svg>
-              ) : (
-                "Qidirish"
-              )}
+              {isFetching ? "..." : "Qidirish"}
             </button>
           </form>
         </div>
 
+        {/* BOOKS */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {books?.items?.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => openModal(item.id)}
-              className="cursor-pointer"
-            >
-              <CardPage item={item} isLoading={false} />
-            </div>
-          ))}
+          {isLoading || isFetching
+            ? Array.from({ length: 20 }).map((_, i) => <CardSkeleton key={i} />)
+            : books?.items?.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => openModal(item.id)}
+                  className="cursor-pointer"
+                >
+                  <CardPage item={item} isLoading={false} />
+                </div>
+              ))}
         </div>
 
+        {/* EMPTY */}
         {books?.items?.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-10">
-            <p
-              className={`text-lg font-semibold ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
-            >
-              Hech qanday kitob topilmadi
-            </p>
+          <div className="text-center py-10 text-gray-500">
+            Hech qanday kitob topilmadi
           </div>
         )}
 
-        {/* <div>
-          <Link
-            href={`/categories/${data.categoryId}?page=${index_number}&limit=${limit}`}
-            key={index}
-          >
-            <Button
-              className="cursor-pointer"
-              variant={index_number === Number(page) ? "default" : "outline"}
+        {/* PAGINATION */}
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-8">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => p - 1)}
+              className="px-3 py-1 border rounded"
             >
-              {index_number}
-            </Button>
-          </Link>
-        </div> */}
+              Prev
+            </button>
+
+            <span>
+              {currentPage} / {totalPages}
+            </span>
+
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => p + 1)}
+              className="px-3 py-1 border rounded"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
 
       {selectedBookId != null && (

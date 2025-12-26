@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Kitob Qand - Bepul Kutubxona",
@@ -41,7 +42,9 @@ export default function RootLayout({
     <html lang="uz" suppressHydrationWarning>
       <body className="antialiased xl:px-24.5">
         <Navbar />
-        <main>{children}</main>
+        <main>
+          <Providers>{children}</Providers>
+        </main>
         <Footer />
       </body>
     </html>
