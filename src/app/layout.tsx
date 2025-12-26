@@ -4,9 +4,10 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Providers from "./providers";
 import "nprogress/nprogress.css";
-import "./globals.css";
 import RouteProgress from "@/components/RouteProgress";
 import Script from "next/script";
+import DarkModeScript from "@/components/DarkModeScript";
+import DarkModeInit from "@/components/DarkModeInit";
 
 export const metadata: Metadata = {
   title: "Kitob Qand - Bepul Kutubxona",
@@ -49,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="uz" suppressHydrationWarning>
       <head>
+        <DarkModeScript />
         <Script
           id="yandex-metrika"
           strategy="afterInteractive"
@@ -76,6 +78,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body className="antialiased xl:px-24.5">
+        <DarkModeInit />
         <Navbar />
         <main>
           <RouteProgress />
