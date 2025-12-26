@@ -22,13 +22,20 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
   const [busy, setBusy] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const headers = {
+    library: "16",
+  };
+
   const handleSearch = async (page = currentPage) => {
     setLoading(true);
     try {
       const res = await fetch(
         `https://library.softly.uz/api/app/books?size=20&page=${page}&q=${inputSearchValue.trim()}${
           busy !== null ? `&busy=${busy}` : ""
-        }`
+        }`,
+        {
+          headers,
+        }
       );
       const data = await res.json();
       setBooks(data);
@@ -45,7 +52,10 @@ const Kitoblar: React.FC<KitoblarProps> = ({ initialData }) => {
       const res = await fetch(
         `https://library.softly.uz/api/app/books?size=20&page=1&q=${inputSearchValue.trim()}${
           filter !== null ? `&busy=${filter}` : ""
-        }`
+        }`,
+        {
+          headers,
+        }
       );
       const data = await res.json();
       setBooks(data);

@@ -44,6 +44,9 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
   const [productPage, setProductPage] = useState<Book | null>(null);
   const [qaytishi, setQaytishi] = useState<Record<string, number> | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const headers = {
+    library: "16",
+  };
 
   const fetchBookDetails = async () => {
     if (!id || !isOpen) return;
@@ -51,9 +54,14 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
     setLoading(true);
     try {
       const [bookResponse, statusResponse] = await Promise.all([
-        fetch(`https://library.softly.uz/api/app/books/${id}`),
+        fetch(`https://library.softly.uz/api/app/books/${id}`, {
+          headers,
+        }),
         fetch(
-          `https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`
+          `https://library.softly.uz/api/app/books/${id}/statuses?locationId=1`,
+          {
+            headers,
+          }
         ),
       ]);
 
@@ -70,6 +78,7 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
         },
         {}
       );
+
       setQaytishi(Object.keys(groupedDates).length > 0 ? groupedDates : null);
     } catch (error) {
       console.error("Ma'lumotlarni yuklashda xatolik:", error);
@@ -131,7 +140,9 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
               </p>
               <div className="mt-4 space-y-2">
                 <p>📚 Umumiy kitoblar: {productPage.stocks.length}</p>
-                <p>{"📖 Bo'sh kitoblar:"} {boshKitoblar}</p>
+                <p>
+                  {"📖 Bo'sh kitoblar:"} {boshKitoblar}
+                </p>
               </div>
               {qaytishi && (
                 <div className="mt-4">
