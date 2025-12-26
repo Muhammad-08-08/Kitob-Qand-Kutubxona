@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
             isDarkMode ? "text-white" : "text-gray-800"
           }`}
         >
-          Mehr kutubxonasi - Bepul kutubxona
+          KitobQand kutubxonasi - Bepul kutubxona
         </h2>
         <p
           className={`mt-3 text-lg ${

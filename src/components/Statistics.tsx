@@ -41,7 +41,7 @@ const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
 
   return (
     <section
-      className={`w-full container mx-auto py-8 px-4 sm:px-8 md:px-16 transition-colors duration-300 ${
+      className={`w-full container mx-auto py-8 px-4 transition-colors duration-300 ${
         isDarkMode ? "bg-[#1E1E1E] text-[#FDF7F5]" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
@@ -56,30 +56,34 @@ const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
         </Link>
       </div>
 
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {statItems.map((item, index) => (
-          <Link key={index} href="/statistika">
+          <Link key={index} href="/statistika" className="w-full">
             <div
-              className={`p-4 sm:p-5 rounded-lg shadow-lg hover:shadow-xl text-center transition-all duration-300 transform hover:scale-105 ${
-                isDarkMode
-                  ? "bg-[#252525] text-[#FDF7F5]"
-                  : "bg-[#F0EAE8] text-[#5B2C25]"
-              }  flex flex-col items-center justify-center h-[140px] sm:h-[180px] sm:w-[280px]`}
+              className={`sm:p-6 rounded-xl shadow-md hover:shadow-xl 
+        transition-all duration-300 transform hover:scale-105
+        flex flex-col items-center justify-center text-center
+        h-[150px] sm:h-[180px]
+        ${
+          isDarkMode
+            ? "bg-[#252525] text-[#FDF7F5]"
+            : "bg-[#F0EAE8] text-[#5B2C25]"
+        }`}
             >
-              <div className="mb-3 flex justify-center">
-                <Image
-                  src={item.image}
-                  alt={item.label}
-                  width={48}
-                  height={48}
-                  className="opacity-90"
-                  priority={index < 2}
-                />
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold">
+              <Image
+                src={item.image}
+                alt={item.label}
+                width={48}
+                height={48}
+                className="mb-3 opacity-90"
+                priority={index < 2}
+              />
+
+              <h2 className="text-2xl font-extrabold">
                 {item.value.toLocaleString("ru")}
               </h2>
-              <p className="mt-1 text-base sm:text-lg font-bold">
+
+              <p className="mt-1 text-sm sm:text-base font-semibold opacity-90">
                 {item.label}
               </p>
             </div>
