@@ -6,6 +6,7 @@ import Providers from "./providers";
 import "nprogress/nprogress.css";
 import "./globals.css";
 import RouteProgress from "@/components/RouteProgress";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Kitob Qand - Bepul Kutubxona",
@@ -27,13 +28,17 @@ export const metadata: Metadata = {
     follow: true,
   },
   manifest: "/manifest.json",
-  icons: {
-    icon: "http://localhost:3000/_next/static/media/kitob_qand_logo.1b39a42f.svg",
-    shortcut:
-      "http://localhost:3000/_next/static/media/kitob_qand_logo.1b39a42f.svg", // brauzer yorliqlarida ishlatilishi mumkin
-    apple:
-      "http://localhost:3000/_next/static/media/kitob_qand_logo.1b39a42f.svg", // Apple qurilmalari uchun
-  },
+  icons: [
+    {
+      rel: "icon",
+      url: "/favicon.ico", // favicon faylingiz shu joyda bo'lishi kerak
+    },
+    {
+      rel: "apple-touch-icon",
+      url: "/apple-touch-icon.png", // Apple qurilmalari uchun
+      sizes: "180x180",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -43,6 +48,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uz" suppressHydrationWarning>
+      <head>
+        <Script
+          id="yandex-metrika"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106041016', 'ym');
+
+        ym(106041016, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+      `,
+          }}
+        />
+        <noscript>
+          <div>
+            <img
+              src="https://mc.yandex.ru/watch/106041016"
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
+        </noscript>
+      </head>
       <body className="antialiased xl:px-24.5">
         <Navbar />
         <main>

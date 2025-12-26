@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useMyStore from "@/store/my-store";
 
@@ -54,9 +53,9 @@ export default function AdditionalStats({ totalStats }: TotalStatsType) {
               value: totalStats.reading_books_count,
               emoji: "⏳",
             },
-          ].map((stat) => (
+          ].map((stat, index) => (
             <div
-              key={stat.label}
+              key={(stat.label.toString() || "unknown") + index}
               className={`w-full text-center p-2 sm:p-3 rounded-lg shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-200"

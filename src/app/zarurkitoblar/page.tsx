@@ -75,7 +75,22 @@ export default function ZarurKitoblar() {
       </div>
 
       {loading ? (
-        <p className="text-center py-10">Yuklanmoqda...</p>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 24 }).map((_, idx) => (
+            <div
+              key={idx}
+              className={`p-3 md:p-4 rounded-xl shadow-md animate-pulse ${
+                isDarkMode ? "bg-gray-800" : "bg-gray-200"
+              }`}
+            >
+              <div className="h-6 bg-gray-400 rounded mb-2"></div>
+              <div className="flex justify-between">
+                <div className="h-4 w-16 bg-gray-400 rounded"></div>
+                <div className="h-4 w-16 bg-gray-400 rounded"></div>
+              </div>
+            </div>
+          ))}
+        </div>
       ) : error ? (
         <p className="text-center py-10 text-red-500">{error}</p>
       ) : (

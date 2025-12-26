@@ -14,7 +14,7 @@ const LibraryStatistics: React.FC = () => {
   const [data, setData] = useState<LibraryData | null>(null);
   const { isDarkMode } = useMyStore();
 
-    const headers = {
+  const headers = {
     library: "16",
   };
 
@@ -33,8 +33,67 @@ const LibraryStatistics: React.FC = () => {
 
   if (!data) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-gray-600 dark:text-gray-300">Yuklanmoqda...</p>
+      <div className="min-h-screen py-6 p-2 md:px-4">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-6 animate-pulse bg-gray-300 dark:bg-gray-700 h-10 w-64 mx-auto rounded"></h1>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            {/* MainStats Skeleton */}
+            <div className="w-full lg:col-span-6 animate-pulse">
+              <div className="h-[50vh] bg-gray-300 dark:bg-gray-700 rounded-lg p-4">
+                <div className="h-7 md:w-80 bg-gray-400 dark:bg-gray-700 rounded-lg p-4"></div>
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                  {Array.from({ length: 6 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="h-32 bg-gray-400 dark:bg-gray-600 rounded-lg"
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* AdditionalStats Skeleton */}
+            <div className="w-full lg:col-span-6 animate-pulse">
+              <div className="h-[50vh] bg-gray-300 dark:bg-gray-700 rounded-lg p-4">
+                <div className="h-7 md:w-80 bg-gray-400 dark:bg-gray-700 rounded-lg p-4"></div>
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                  {Array.from({ length: 4 }).map((_, idx) => (
+                    <div
+                      key={idx}
+                      className="h-32 bg-gray-400 dark:bg-gray-600 rounded-lg"
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* BorrowingChart Skeleton */}
+            <div className="w-full lg:col-span-12 animate-pulse">
+              <div className="h-64 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
+            </div>
+
+            {/* TopBooks Skeleton */}
+            <div className="w-full lg:col-span-4 space-y-4 animate-pulse">
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="h-12 bg-gray-300 dark:bg-gray-700 rounded-lg"
+                ></div>
+              ))}
+            </div>
+
+            {/* TopReaders Skeleton */}
+            <div className="w-full lg:col-span-8 space-y-4 animate-pulse">
+              {Array.from({ length: 6 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="h-12 bg-gray-300 dark:bg-gray-700 rounded-lg"
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -83,9 +142,7 @@ const LibraryStatistics: React.FC = () => {
   return (
     <div
       className={`min-h-screen py-6 p-2 md:px-4 transition-all duration-300 ${
-        isDarkMode
-          ? "bg-[#1E1E1E] text-[#EDEDED]"
-          : "bg-[#fff] text-[#5B2C25]"
+        isDarkMode ? "bg-[#1E1E1E] text-[#EDEDED]" : "bg-[#fff] text-[#5B2C25]"
       }`}
     >
       <div className="max-w-7xl mx-auto">

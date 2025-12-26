@@ -48,7 +48,7 @@ export default function TopReaders({ readers }: TopReadersProps) {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {topReaders.map((reader, index) => (
             <div
-              key={`${reader.lastName}-${index}`}
+              key={(reader.lastName?.toString() || "unknown") + index}
               className={`p-3 rounded-lg shadow-md hover:shadow-lg flex items-center gap-3 transition-all duration-300 cursor-pointer hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-200"
@@ -63,7 +63,7 @@ export default function TopReaders({ readers }: TopReadersProps) {
                   {reader.count}
                 </span>
                 <span className="text-xs sm:text-sm text-gray-500">
-                  {reader.lastName}
+                  {reader.lastName || "Noma'lum"}
                 </span>
               </div>
             </div>

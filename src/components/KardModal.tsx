@@ -95,14 +95,13 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
 
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
-      <DrawerContent className="w-full h-full mx-auto px-6 rounded-t-2xl shadow-lg">
+      <DrawerContent className="w-full h-[90vh] mx-auto px-6 rounded-t-2xl shadow-lg">
         <DrawerHeader className="mb-0 p-0">
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="cursor-pointer"
               aria-label="Yopish"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -119,34 +118,37 @@ const KardDrawer: React.FC<KardModalProps> = ({ id, isOpen, onClose }) => {
             <Skeleton className="h-4 w-1/4" />
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row gap-6 py-4 overflow-y-auto">
-            <div className="w-full h-[50vh] md:w-1/3 md:h-[65vh] flex justify-center">
+          <div className="flex flex-col md:flex-row gap-6 py-4 overflow-y-auto h-[calc(95vh-80px)]">
+            {/* Rasm konteyneri */}
+            <div className="w-full md:w-1/3 flex justify-center items-start">
               <Image
                 src={productPage.image || "/fallback-image.jpg"}
                 alt={productPage.name}
                 width={340}
                 height={440}
-                className="rounded-lg shadow-md"
+                className="rounded-lg shadow-md object-contain"
                 priority
               />
             </div>
+
+            {/* Matn va statistikalar */}
             <div className="flex-1 space-y-3">
               <h1 className="text-2xl font-bold">{productPage.name}</h1>
               <h2 className="text-lg font-medium">
                 Muallif: {productPage.author.name}
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                {" Kutubxonamizdan vaqtincha olib o'qishingiz mumkin."}
+                Kutubxonamizdan vaqtincha olib o'qishingiz mumkin.
               </p>
+
               <div className="mt-4 space-y-2">
                 <p>📚 Umumiy kitoblar: {productPage.stocks.length}</p>
-                <p>
-                  {"📖 Bo'sh kitoblar:"} {boshKitoblar}
-                </p>
+                <p>📖 Bo'sh kitoblar: {boshKitoblar}</p>
               </div>
+
               {qaytishi && (
                 <div className="mt-4">
-                  <h4 className="font-semibold">{"📅 Bo'sh muddatlar:"}</h4>
+                  <h4 className="font-semibold">📅 Bo'sh muddatlar:</h4>
                   <div className="space-y-2 mt-2 md:w-[35%]">
                     {Object.entries(qaytishi).map(([date, count]) => (
                       <div

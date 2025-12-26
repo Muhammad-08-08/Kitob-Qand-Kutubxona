@@ -67,7 +67,7 @@ const Kitoblar: React.FC<{ initialData: TopMenuType }> = ({ initialData }) => {
             ].map((filter) => (
               <button
                 key={filter.label}
-                className={`px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base transition-all duration-300 ${
+                className={`px-3 sm:px-4 py-2 rounded-md text-sm sm:text-base transition-all duration-300 cursor-pointer ${
                   busy === filter.value
                     ? "bg-[#773000] text-white"
                     : isDarkMode
@@ -143,7 +143,7 @@ const Kitoblar: React.FC<{ initialData: TopMenuType }> = ({ initialData }) => {
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((p) => p - 1)}
-              className="px-3 py-1 border rounded"
+              className="px-3 py-1 border rounded cursor-pointer"
             >
               Oldingi
             </button>
@@ -155,7 +155,7 @@ const Kitoblar: React.FC<{ initialData: TopMenuType }> = ({ initialData }) => {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 border rounded"
+              className="px-3 py-1 border rounded cursor-pointer"
             >
               Keyingi
             </button>

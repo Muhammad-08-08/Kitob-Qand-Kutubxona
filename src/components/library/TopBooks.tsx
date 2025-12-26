@@ -47,7 +47,7 @@ export default function TopBooks({ books }: TopBooksProps) {
         <div className="grid grid-cols-1 gap-4">
           {topBooks.map((book, index) => (
             <div
-              key={book.name}
+              key={(book.name?.toString() || "unknown") + index}
               className={`flex items-center justify-between p-2 rounded-lg transition-colors duration-300 ${
                 isDarkMode
                   ? "bg-gray-800 text-gray-300"
@@ -65,7 +65,7 @@ export default function TopBooks({ books }: TopBooksProps) {
                   {index + 1}
                 </span>
                 <span className="font-medium text-sm sm:text-base">
-                  {book.name}
+                  {book.name || "Noma'lum"}
                 </span>
               </div>
               <span className="font-semibold text-xs sm:text-base">
