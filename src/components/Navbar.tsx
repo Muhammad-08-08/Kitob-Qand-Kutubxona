@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
           </div>
         </Link>
 
-        <div className="hidden xl:flex items-center gap-6 text-lg font-medium">
+        <div className="hidden md:flex items-center gap-6 text-lg font-medium">
           <Link
             href="/manzil"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <button
-          className="xl:hidden text-2xl"
+          className="md:hidden text-2xl"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           ☰
