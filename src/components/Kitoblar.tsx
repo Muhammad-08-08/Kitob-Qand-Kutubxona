@@ -145,7 +145,7 @@ const Kitoblar: React.FC<{ initialData: TopMenuType }> = ({ initialData }) => {
               onClick={() => setCurrentPage((p) => p - 1)}
               className="px-3 py-1 border rounded"
             >
-              Prev
+              Oldingi
             </button>
 
             <span>
@@ -157,7 +157,7 @@ const Kitoblar: React.FC<{ initialData: TopMenuType }> = ({ initialData }) => {
               onClick={() => setCurrentPage((p) => p + 1)}
               className="px-3 py-1 border rounded"
             >
-              Next
+              Keyingi
             </button>
           </div>
         )}

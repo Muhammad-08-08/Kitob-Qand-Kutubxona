@@ -3,6 +3,9 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Providers from "./providers";
+import "nprogress/nprogress.css";
+import "./globals.css";
+import RouteProgress from "@/components/RouteProgress";
 
 export const metadata: Metadata = {
   title: "Kitob Qand - Bepul Kutubxona",
@@ -43,6 +46,7 @@ export default function RootLayout({
       <body className="antialiased xl:px-24.5">
         <Navbar />
         <main>
+          <RouteProgress />
           <Providers>{children}</Providers>
         </main>
         <Footer />

@@ -23,9 +23,13 @@ export default function TopReaders({ readers }: TopReadersProps) {
 
   useEffect(() => {
     if (!readers) {
-      axios.get(API_URL).then((response) => {
-        setTopReaders(response.data.top_librarians);
-      });
+      axios
+        .get(API_URL, {
+          headers: { library: "16" },
+        })
+        .then((response) => {
+          setTopReaders(response.data.top_librarians);
+        });
     }
   }, [readers]);
 
@@ -42,9 +46,9 @@ export default function TopReaders({ readers }: TopReadersProps) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {topReaders.map((reader) => (
+          {topReaders.map((reader, index) => (
             <div
-              key={reader.lastName}
+              key={`${reader.lastName}-${index}`}
               className={`p-3 rounded-lg shadow-md hover:shadow-lg flex items-center gap-3 transition-all duration-300 cursor-pointer hover:scale-105 ${
                 isDarkMode
                   ? "bg-gray-800 hover:bg-gray-700 text-gray-200"

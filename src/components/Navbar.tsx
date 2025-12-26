@@ -3,9 +3,9 @@
 import { useState } from "react";
 import useMyStore from "@/store/my-store";
 import { FiMoon, FiSun, FiX } from "react-icons/fi";
-import Link from "next/link";
 import Image from "next/image";
 import logoImage from "../images/kitob_qand_logo.svg";
+import CustomLink from "./CustomLink";
 
 const Navbar: React.FC = () => {
   const { isDarkMode, toggleDarkMode } = useMyStore();
@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   return (
     <header className="container mx-auto w-full transition-colors duration-300 relative z-50 bg-[#fff] text-[#5B2C25] dark:bg-[#1E1E1E] dark:text-[#EDEDED]">
       <div className="flex justify-between items-center py-3 px-4">
-        <Link href="/">
+        <CustomLink href="/">
           <div className="flex items-center gap-2 sm:gap-3 cursor-pointer">
             <Image
               src={logoImage}
@@ -25,27 +25,27 @@ const Navbar: React.FC = () => {
             />
             <span className="text-lg sm:text-xl font-bold">Kitob Qand</span>
           </div>
-        </Link>
+        </CustomLink>
 
         <div className="hidden md:flex items-center gap-6 text-lg font-medium">
-          <Link
+          <CustomLink
             href="/manzil"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
           >
             Manzil
-          </Link>
-          <Link
+          </CustomLink>
+          <CustomLink
             href="/zarurkitoblar"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
           >
             Zarur kitoblar
-          </Link>
-          <Link
+          </CustomLink>
+          <CustomLink
             href="/statistika"
             className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
           >
             Statistika
-          </Link>
+          </CustomLink>
           <button onClick={toggleDarkMode} className="cursor-pointer">
             {isDarkMode ? <FiMoon size={34} /> : <FiSun size={34} />}
           </button>
@@ -75,27 +75,27 @@ const Navbar: React.FC = () => {
               <FiX />
             </button>
             <nav className="flex flex-col gap-4 text-lg font-medium">
-              <Link
+              <CustomLink
                 href="/manzil"
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
               >
                 Manzil
-              </Link>
-              <Link
+              </CustomLink>
+              <CustomLink
                 href="/zarurkitoblar"
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
               >
                 Zarur kitoblar
-              </Link>
-              <Link
+              </CustomLink>
+              <CustomLink
                 href="/statistika"
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-[#A06A5A] dark:hover:text-[#EDEDED]"
               >
                 Statistika
-              </Link>
+              </CustomLink>
             </nav>
             <button
               onClick={toggleDarkMode}

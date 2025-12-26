@@ -22,9 +22,13 @@ export default function TopBooks({ books }: TopBooksProps) {
 
   useEffect(() => {
     if (!books) {
-      axios.get(API_URL).then((response) => {
-        setTopBooks(response.data.top_books);
-      });
+      axios
+        .get(API_URL, {
+          headers: { library: "16" },
+        })
+        .then((response) => {
+          setTopBooks(response.data.top_books);
+        });
     }
   }, [books]);
 

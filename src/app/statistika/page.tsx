@@ -14,9 +14,15 @@ const LibraryStatistics: React.FC = () => {
   const [data, setData] = useState<LibraryData | null>(null);
   const { isDarkMode } = useMyStore();
 
+    const headers = {
+    library: "16",
+  };
+
   useEffect(() => {
     axios
-      .get("https://library.softly.uz/api/app/stats")
+      .get("https://library.softly.uz/api/app/stats", {
+        headers,
+      })
       .then((response) => {
         setData(response.data);
       })

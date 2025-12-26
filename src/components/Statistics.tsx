@@ -7,7 +7,7 @@ import booksIcon from "../images/books.png";
 import checkIcon from "../images/check-mark.png";
 import bookIcon from "../images/open-book.png";
 import { StatisticsData } from "./Type.User";
-import Link from "next/link";
+import CustomLink from "./CustomLink";
 
 interface StatisticsProps {
   initialData: StatisticsData;
@@ -49,16 +49,16 @@ const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
           📊 Kutubxona statistikasi
         </h1>
-        <Link href="/statistika">
+        <CustomLink href="/statistika">
           <p className="mt-2 text-lg font-mono cursor-pointer hover:text-[#A06A5A] transition-colors duration-200">
             {"➡️ To'liq ko'rish"}
           </p>
-        </Link>
+        </CustomLink>
       </div>
 
       <div className="mt-8 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {statItems.map((item, index) => (
-          <Link key={index} href="/statistika" className="w-full">
+          <CustomLink key={index} href="/statistika" className="w-full">
             <div
               className={`sm:p-6 rounded-xl shadow-md hover:shadow-xl 
         transition-all duration-300 transform hover:scale-105
@@ -87,7 +87,7 @@ const Statistics: React.FC<StatisticsProps> = ({ initialData }) => {
                 {item.label}
               </p>
             </div>
-          </Link>
+          </CustomLink>
         ))}
       </div>
     </section>

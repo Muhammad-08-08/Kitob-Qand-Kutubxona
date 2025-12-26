@@ -5,9 +5,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const revalidate = 3600; // Revalidate every hour
 
+const headers = {
+  library: "16",
+};
+
 async function getStatistics() {
   const res = await fetch("https://library.softly.uz/api/app/stats", {
     next: { revalidate: 3600 },
+    headers,
   });
   if (!res.ok) throw new Error("Failed to fetch statistics");
   return res.json();
@@ -18,6 +23,7 @@ async function getBooks() {
     "https://library.softly.uz/api/app/books?size=20&page=1",
     {
       next: { revalidate: 3600 },
+      headers,
     }
   );
   if (!res.ok) throw new Error("Failed to fetch books");

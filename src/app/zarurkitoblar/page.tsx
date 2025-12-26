@@ -16,11 +16,16 @@ export default function ZarurKitoblar() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const headers = {
+    library: "16",
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("https://library.softly.uz/api/app/stats", {
           next: { revalidate: 3600 },
+          headers,
         });
         if (!res.ok) throw new Error("Ma'lumotlarni olishda xatolik");
         const data = await res.json();

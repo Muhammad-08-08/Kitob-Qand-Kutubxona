@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #05ee18; /* indigo */
+  height: 3px;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #05ee18, 0 0 5px #05ee18;
+}
+
+#nprogress .spinner {
+  display: none;
+}
+
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
